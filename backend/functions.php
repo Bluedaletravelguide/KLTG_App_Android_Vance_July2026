@@ -2517,8 +2517,8 @@ if(!empty($_SERVER['HTTP_CF_CONNECTING_IP'])){
     $ip = $_SERVER['REMOTE_ADDR'] ?? '';
 }
 
-$ADMIN_PASSWORD = "31-2";
-$WRITER_PASSWORD = "writer";
+$ADMIN_PASSWORD = "CHANGE_ME_ADMIN_PASSWORD";
+$WRITER_PASSWORD = "CHANGE_ME_WRITER_PASSWORD";
 
 if(isset($_SESSION['access']) &&
 ($_SESSION['access'] === $ADMIN_PASSWORD ||
@@ -2540,8 +2540,8 @@ $_SESSION['access'] === $WRITER_PASSWORD))
 } else {
     if($isLoginPage === true) {
 
-        $ADMIN_PASSWORD = "31-2";
-        $WRITER_PASSWORD = "writer";
+        $ADMIN_PASSWORD = "CHANGE_ME_ADMIN_PASSWORD";
+        $WRITER_PASSWORD = "CHANGE_ME_WRITER_PASSWORD";
         if(isset($_GET['pw']))  {
 
             if($_GET['pw'] === $ADMIN_PASSWORD) {
