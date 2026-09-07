@@ -30,26 +30,44 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   WeatherInfo? _weather;
   bool _weatherFailed = false;
 
-  static const List<String> _highlightsKeys = ['glance', 'getaround', 'traveltips'];
+  static const List<String> _highlightsKeys = [
+    'glance',
+    'getaround',
+    'traveltips'
+  ];
   static const List<String> _recommendationsKeys = [
-    'explorekl', 'shop', 'stay', 'spa', 'medical', 'beyondkl',
+    'explorekl',
+    'shop',
+    'stay',
+    'spa',
+    'medical',
+    'beyondkl',
   ];
 
   // appHomeHighlights/appHomeRecommendations' backing DB tables don't exist
   // on the live server (never migrated), so these card images are hardcoded
   // from kltheguide.com.my's own homepage rather than fetched.
   static const Map<String, dynamic> _highlightsImages = {
-    'glance': 'https://new.kltheguide.com.my/assets/img/highlights/kl@aglance.jpg',
-    'getaround': 'https://new.kltheguide.com.my/assets/img/highlights/gettingaroundkl.jpg',
-    'traveltips': 'https://new.kltheguide.com.my/assets/img/highlights/traveltips.jpg',
+    'glance':
+        'https://new.kltheguide.com.my/assets/img/highlights/kl@aglance.jpg',
+    'getaround':
+        'https://new.kltheguide.com.my/assets/img/highlights/gettingaroundkl.jpg',
+    'traveltips':
+        'https://new.kltheguide.com.my/assets/img/highlights/traveltips.jpg',
   };
   static const Map<String, dynamic> _recommendationsImages = {
-    'explorekl': 'https://new.kltheguide.com.my/assets/img/recommendation/ExploringKL.jpg',
-    'shop': 'https://new.kltheguide.com.my/assets/img/recommendation/ShopLikeLocal.jpg',
-    'stay': 'https://new.kltheguide.com.my/assets/img/recommendation/PlaceToStay.jpg',
-    'spa': 'https://new.kltheguide.com.my/assets/img/recommendation/SpaTime.jpg',
-    'medical': 'https://new.kltheguide.com.my/assets/img/recommendation/MedicalTourism.jpg',
-    'beyondkl': 'https://new.kltheguide.com.my/assets/img/recommendation/BeyondKL.jpg',
+    'explorekl':
+        'https://new.kltheguide.com.my/assets/img/recommendation/ExploringKL.jpg',
+    'shop':
+        'https://new.kltheguide.com.my/assets/img/recommendation/ShopLikeLocal.jpg',
+    'stay':
+        'https://new.kltheguide.com.my/assets/img/recommendation/PlaceToStay.jpg',
+    'spa':
+        'https://new.kltheguide.com.my/assets/img/recommendation/SpaTime.jpg',
+    'medical':
+        'https://new.kltheguide.com.my/assets/img/recommendation/MedicalTourism.jpg',
+    'beyondkl':
+        'https://new.kltheguide.com.my/assets/img/recommendation/BeyondKL.jpg',
   };
 
   @override
@@ -69,7 +87,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
     final raw = field(_siteInfo, key);
     if (raw.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Link unavailable, please try again later.')),
+        const SnackBar(
+            content: Text('Link unavailable, please try again later.')),
       );
       return;
     }
@@ -84,13 +103,6 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   void _openRecommendation(int index, List<String> titles) {
     Navigator.pushNamed(context, '/rmd-$index',
         arguments: {'index': index, 'titles': titles});
-  }
-
-  String get _greeting {
-    final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good Morning!';
-    if (hour < 17) return 'Good Afternoon!';
-    return 'Good Evening!';
   }
 
   @override
@@ -112,8 +124,9 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
     ];
     final highlightImages =
         _highlightsKeys.map((k) => field(_highlightsImages, k)).toList();
-    final rmdImages =
-        _recommendationsKeys.map((k) => field(_recommendationsImages, k)).toList();
+    final rmdImages = _recommendationsKeys
+        .map((k) => field(_recommendationsImages, k))
+        .toList();
 
     return Scaffold(
       backgroundColor: palette.background,
@@ -130,7 +143,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 const SizedBox(height: 30),
                 _buildSectionTitle(S.of(context).klHighlights, palette),
                 const SizedBox(height: 14),
-                _buildHighlightsGrid(highlightImages, titlesHighlights, palette),
+                _buildHighlightsGrid(
+                    highlightImages, titlesHighlights, palette),
                 const SizedBox(height: 30),
                 _buildSectionTitle(S.of(context).recommendations, palette),
                 const SizedBox(height: 14),
@@ -172,16 +186,6 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          _greeting,
-          style: TextStyle(
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.w900,
-            fontSize: 28,
-            height: 1.15,
-            color: palette.textPrimary,
-          ),
-        ),
         const SizedBox(height: 6),
         Text(
           'Discover Kuala Lumpur today',
@@ -245,7 +249,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                   Expanded(
                     child: Text(
                       'Search shops, stays, spas…',
-                      style: TextStyle(color: palette.textSecondary, fontSize: 14.5),
+                      style: TextStyle(
+                          color: palette.textSecondary, fontSize: 14.5),
                     ),
                   ),
                 ],
@@ -284,7 +289,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 ),
               ],
             ),
-            child: Icon(Icons.camera_alt_rounded, color: palette.accent, size: 21),
+            child:
+                Icon(Icons.camera_alt_rounded, color: palette.accent, size: 21),
           ),
         ),
       ),
@@ -313,52 +319,54 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
           button: true,
           label: 'Weather, view 6-day forecast',
           child: Container(
-      constraints: const BoxConstraints(maxWidth: 200),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: palette.card,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(weather?.icon ?? Icons.wb_cloudy_outlined, color: palette.accent, size: 24),
-          const SizedBox(width: 8),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Kuala Lumpur',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.5,
-                    color: palette.textPrimary,
-                  ),
-                ),
-                Text(
-                  weather != null
-                      ? '${weather.temperatureC.round()}°C, ${weather.description}'
-                      : (_weatherFailed ? 'Unavailable' : 'Loading…'),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 11.5, color: palette.textSecondary),
+            constraints: const BoxConstraints(maxWidth: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            decoration: BoxDecoration(
+              color: palette.card,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.06),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(weather?.icon ?? Icons.wb_cloudy_outlined,
+                    color: palette.accent, size: 24),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Kuala Lumpur',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.5,
+                          color: palette.textPrimary,
+                        ),
+                      ),
+                      Text(
+                        weather != null
+                            ? '${weather.temperatureC.round()}°C, ${weather.description}'
+                            : (_weatherFailed ? 'Unavailable' : 'Loading…'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 11.5, color: palette.textSecondary),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -607,7 +615,10 @@ class _HighlightTile extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withValues(alpha: 0.78)],
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.78)
+                  ],
                   stops: const [0.35, 1.0],
                 ),
               ),
@@ -634,7 +645,8 @@ class _HighlightTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                     decoration: BoxDecoration(
                       color: palette.accent,
                       borderRadius: BorderRadius.circular(20),
@@ -717,7 +729,8 @@ class _ForecastSheetState extends State<_ForecastSheet> {
             else if (_forecast == null)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Center(child: CircularProgressIndicator(color: palette.accent)),
+                child: Center(
+                    child: CircularProgressIndicator(color: palette.accent)),
               )
             else
               for (final day in _forecast!)
@@ -740,7 +753,8 @@ class _ForecastSheetState extends State<_ForecastSheet> {
                       Expanded(
                         child: Text(
                           day.description,
-                          style: TextStyle(color: palette.textSecondary, fontSize: 13.5),
+                          style: TextStyle(
+                              color: palette.textSecondary, fontSize: 13.5),
                         ),
                       ),
                       Text(
@@ -759,7 +773,6 @@ class _ForecastSheetState extends State<_ForecastSheet> {
     );
   }
 }
-
 
 // User-selectable accent color for HomePalette (see Settings > Appearance).
 // Blue is the default; Coral is the original hue the cream/coral redesign
