@@ -162,23 +162,23 @@
     "@loadingData": {
       "description": "Message affiché lors du chargement des données"
     },
-    "email": "Email : enquiry@bluedale.com.my",
+    "email": "Email",
     "@email": {
       "description": "Texte pour le contact email de l'entreprise"
     },
-    "whatsapp": "Whatsapp : +6012-220 0622",
+    "whatsapp": "Whatsapp",
     "@whatsapp": {
       "description": "Texte pour le contact WhatsApp de l'entreprise"
     },
-    "phone": "Téléphone : +603-78869219",
+    "phone": "Téléphone",
     "@phone": {
       "description": "Texte pour le contact téléphonique de l'entreprise"
     },
-    "address": "adresse",
+    "address": "Adresse",
     "@address": {
       "description": "Texte pour l'adresse de l'entreprise en français"
     },
-    "workingHours": "Lundi-Vendredi : 9h00 - 18h00",
+    "workingHours": "Lundi-Vendredi ",
     "@workingHours": {
       "description": "Texte pour les horaires de travail de l'entreprise"
     },
@@ -1883,7 +1883,8 @@
   "jugraHillContent": "Depuis le phare de la Colline de Jugra, vivez le frisson du parapente. Selon les conditions de vent, la période de mars à septembre est généralement le meilleur moment pour le pratiquer.",
   "@jugraHillContent": {
     "description": "Description pour la Colline de Jugra"
-  }
+  },
+  "career_opportunity": "Career Opportunity"
   
 }
 

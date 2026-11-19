@@ -74,9 +74,9 @@ class _ExploreKL_NL2State extends State<ExploreKL_NL2> {
         body: Container(
           color: palette.background,
           child: TabBarView(children: [
-            _NL_Tab(category: 'nightlife', palette: palette),
+            _NL_Tab(category: 'nl', palette: palette),
             _NL_Tab(category: 'bars', palette: palette),
-            _NL_Tab(category: 'nightmarket', palette: palette),
+            _NL_Tab(category: 'nm', palette: palette),
           ]),
         ),
       ),

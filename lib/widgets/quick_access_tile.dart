@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:kltheguide/home_page_v2.dart';
 
@@ -40,11 +41,13 @@ class QuickAccessTile extends StatelessWidget {
                 child: Icon(icon, color: palette.accent, size: 20),
               ),
               const SizedBox(height: 8),
-              Text(
+              AutoSizeText(
                 label,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
+                minFontSize: 8,
+                wrapWords: false,
                 style: TextStyle(
                   fontSize: 11.5,
                   fontWeight: FontWeight.w600,

@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "கேமரன் மலைகள் மலேசியாவின் புகழ்பெற்ற உயர்ந்த மலை விடுமுறை கேம்பாகும், மிதமான சுழலுடன், பகல் வெப்பநிலை சுமார் 25°C மற்றும் இரவில் சுமார் 18°C ஆக இருக்கும். மலைப்பகுதி மூன்று பகுதிகளில் பிரிக்கப்படுகிறது: தானா ரதா, பிரின்சாங்க் மற்றும் ரிங்க்லெட். ஆங்கிலேயர் காலத்தின் போது, சிறப்பாக வளமான மலைத்தொடர்ச்சி நிலத்தில் தேயிலை வளர்த்தனர், இன்று அது மலேசியாவின் மிகப்பெரிய தேயிலை ஏற்றுமதியாக மாறியது. தேயிலை தவிர, கேமரன் கொண்டிணென்ட்டல் மரங்கள், பழங்கள் மற்றும் காய்கறிகளை வளர்க்கவும் சிறந்த இடமாகும்.",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "1892 இல் கட்டப்பட்ட சென்ட்ரல் மார்க்கெட், உள்ளூர் கைவினைப்பொருட்களுக்குப் பிரபலமான சுற்றுலா இடமாகும்...",
     ),
@@ -218,9 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "drJaneClinicPhone": MessageLookupByLibrary.simpleMessage(""),
     "ebook": MessageLookupByLibrary.simpleMessage("மின்நூல்"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "மின்னஞ்சல்: enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("மின்னஞ்சல்"),
     "error": MessageLookupByLibrary.simpleMessage("ஒரு பிழை ஏற்பட்டது"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "தரவை ஏற்றுவதில் பிழை",
@@ -700,7 +701,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "நிலை 4, சுரியா KLCC, பெட்ரோநாஸ் இரட்டை கோபுரங்கள், கோலாலம்பூர் நகர மையம், 50088, கோலாலம்பூர்",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("தொலைபேசி: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("தொலைபேசி"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage(
       "மொழியை தேர்வு செய்க",
     ),
@@ -974,9 +975,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("செய்வது என்ன"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("சாப்பிட வேண்டியது"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "வாட்ஸ்அப்: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("வாட்ஸ்அப்"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "வெள்ள நீர்த் துடுப்புப் பயணம் குவாலா குபு பாரு",
     ),
@@ -990,9 +989,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "Jalan Petaling, 50000 கோலாலம்பூர்",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "திங்கள்-வெள்ளி: 9:00AM - 6:00PM",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("திங்கள்-வெள்ளி"),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage(

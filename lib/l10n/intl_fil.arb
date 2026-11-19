@@ -162,23 +162,23 @@
   "@loadingData": {
     "description": "Mensahe na ipinapakita habang naglo-load ng data"
   },
-  "email": "Email: enquiry@bluedale.com.my",
+  "email": "Email",
   "@email": {
     "description": "Teksto para sa email contact ng kumpanya"
   },
-  "whatsapp": "Whatsapp: +6012-220 0622",
+  "whatsapp": "Whatsapp",
   "@whatsapp": {
     "description": "Teksto para sa Whatsapp contact ng kumpanya"
   },
-  "phone": "Telepono: +603-78869219",
+  "phone": "Telepono",
   "@phone": {
     "description": "Teksto para sa telepono ng kumpanya"
   },
-  "address": "address",
+  "address": "Address",
   "@address": {
     "description": "Text for the company's address in Filipino"
   },
-  "workingHours": "Lunes-Biyernes: 9:00AM - 6:00PM",
+  "workingHours": "Lunes-Biyernes",
   "@workingHours": {
     "description": "Teksto para sa oras ng trabaho ng kumpanya"
   },
@@ -1789,6 +1789,7 @@
   "jugraHillContent": "Sa lugar ng parola sa Burol ng Jugra, mararanasan mo ang kasiyahan ng paragliding. Depende sa kondisyon ng hangin, ang buwan ng Marso hanggang Setyembre ay kadalasang ang pinakamainam na panahon para gawin ito.",
   "@jugraHillContent": {
     "description": "Deskripsyon para sa Burol ng Jugra"
-  }
+  },
+  "career_opportunity": "Career Opportunity"
   
 }

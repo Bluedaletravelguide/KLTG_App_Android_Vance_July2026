@@ -162,23 +162,23 @@
   "@loadingData": {
     "description": "Message shown while loading data"
   },
-  "email": "Email: enquiry@bluedale.com.my",
+  "email": "Email",
   "@email": {
     "description": "Text for the company's email contact"
   },
-  "whatsapp": "Whatsapp: +6012-220 0622",
+  "whatsapp": "Whatsapp",
   "@whatsapp": {
     "description": "Text for the company's WhatsApp contact"
   },
-  "phone": "Phone: +603-78869219",
+  "phone": "Phone",
   "@phone": {
     "description": "Text for the company's phone contact"
   },
-  "address": "address",
+  "address": "Address",
   "@address": {
     "description": "Text for the company's address"
   },
-  "workingHours": "Monday-Friday: 9:00AM - 6:00PM",
+  "workingHours": "Monday-Friday",
   "@workingHours": {
     "description": "Text for the company's working hours"
   },
@@ -2120,7 +2120,8 @@
   "september": "september",
   "@september": {
     "description": "title for september"
-  }
+  },
+  "career_opportunity": "Career Opportunity"
   
   
   

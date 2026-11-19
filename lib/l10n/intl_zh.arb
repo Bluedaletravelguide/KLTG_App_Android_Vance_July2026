@@ -162,15 +162,15 @@
   "@loadingData": {
     "description": "加载数据时显示的消息"
   },
-  "email": "电子邮件：enquiry@bluedale.com.my",
+  "email": "电子邮件",
   "@email": {
     "description": "公司的电子邮件联系方式文本"
   },
-  "whatsapp": "Whatsapp: +6012-220 0622",
+  "whatsapp": "Whatsapp",
   "@whatsapp": {
     "description": "公司的Whatsapp联系方式文本"
   },
-  "phone": "电话: +603-78869219",
+  "phone": "电话",
   "@phone": {
     "description": "公司的电话联系方式文本"
   },
@@ -178,7 +178,7 @@
   "@address": {
     "description": "公司地址的中文文本"
   },
-  "workingHours": "星期一至星期五: 9:00AM - 6:00PM",
+  "workingHours": "星期一至星期五",
   "@workingHours": {
     "description": "公司的工作时间文本"
   },
@@ -1825,7 +1825,8 @@
   "jugraHillContent": "在朱格拉山的灯塔观景点，体验滑翔伞的刺激。根据风况，3月至9月通常是最佳时间。",
   "@jugraHillContent": {
     "description": "朱格拉山的描述"
-  }
+  },
+  "career_opportunity": "Career Opportunity"
 
   }
   

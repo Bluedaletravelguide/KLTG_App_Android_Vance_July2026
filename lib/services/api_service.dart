@@ -13,7 +13,7 @@ Future<List<Map<String, dynamic>>> fetchList(
   String? category,
 }) {
   return CacheService.cached<List<Map<String, dynamic>>>(
-    key: category != null ? '${action}_$category' : action,
+    key: category != null ? 'v2_${action}_$category' : 'v2_$action',
     encode: _encodeListCache,
     decode: _decodeListCache,
     fetch: () async {
@@ -27,10 +27,7 @@ Future<List<Map<String, dynamic>>> fetchList(
       }
       final decoded = jsonDecode(res.body);
       if (decoded is! List) return [];
-      return decoded
-          .cast<Map<String, dynamic>>()
-          .where(_isValidEntry)
-          .toList();
+      return decoded.cast<Map<String, dynamic>>().where(_isValidEntry).toList();
     },
   );
 }
@@ -54,9 +51,8 @@ Future<Map<String, dynamic>> fetchObject(String action) {
     encode: jsonEncode,
     decode: (raw) => (jsonDecode(raw) as Map).cast<String, dynamic>(),
     fetch: () async {
-      final res = await http
-          .post(Uri.parse(kApiUrl), body: {action: 'true'})
-          .timeout(const Duration(seconds: 15));
+      final res = await http.post(Uri.parse(kApiUrl),
+          body: {action: 'true'}).timeout(const Duration(seconds: 15));
       if (res.statusCode != 200) {
         throw Exception('API $action failed: ${res.statusCode}');
       }
@@ -81,9 +77,11 @@ Future<Map<String, dynamic>> fetchSiteInfo() => Future.value({
       'whatsapp': '+6012-220 0622',
       'address':
           'No.31-2, Block F2, Level 2, Jalan PJU 1/42a, Dataran Prima, 47301 Petaling Jaya, Selangor',
+      'career': 'Exlore New Opportunities with Us',
+      'career_url': 'https://whatsapp.com/channel/0029VbE7yFoCXC3IJGPoQj3R',
       'address_map_url':
           'https://www.google.com/maps/search/?api=1&query=No.31-2,+Block+F2,+Level+2,+Jalan+PJU+1/42a,+Dataran+Prima,+47301+Petaling+Jaya,+Selangor',
-      'hours_weekday': '',
+      'hours_weekday': '9.00am - 6.00pm',
       'hours_saturday': '',
       'hours_sunday': '',
       'tagline': "Your Gateway to Kuala Lumpur's Best Experiences",
@@ -101,9 +99,8 @@ Future<List<Map<String, dynamic>>> fetchRawList(String action) {
     encode: _encodeListCache,
     decode: _decodeListCache,
     fetch: () async {
-      final res = await http
-          .post(Uri.parse(kApiUrl), body: {action: 'true'})
-          .timeout(const Duration(seconds: 15));
+      final res = await http.post(Uri.parse(kApiUrl),
+          body: {action: 'true'}).timeout(const Duration(seconds: 15));
       if (res.statusCode != 200) {
         throw Exception('API $action failed: ${res.statusCode}');
       }
@@ -155,4 +152,49 @@ bool _isValidEntry(Map<String, dynamic> item) {
   final title = field(item, 'title');
   final image = field(item, 'image');
   return title.isNotEmpty && image.isNotEmpty && !image.endsWith('/');
+}
+
+class CheckoutResult {
+  final bool success;
+  final String message;
+  const CheckoutResult(this.success, this.message);
+}
+
+Future<CheckoutResult> submitOrder({
+  required String name,
+  required String email,
+  required String phone,
+  required String address,
+  required String state,
+  required String postcode,
+  required String product,
+  required int quantity,
+  required double unitPrice,
+  required String receiptPath,
+}) async {
+  const fallback =
+      'We could not record your order. Please try again or contact us.';
+  try {
+    final req = http.MultipartRequest('POST', Uri.parse(kApiUrl))
+      ..fields['appBookOrder'] = '1'
+      ..fields['name'] = name
+      ..fields['email'] = email
+      ..fields['phone'] = phone
+      ..fields['address'] = address
+      ..fields['product'] = product
+      ..fields['quantity'] = quantity.toString()
+      ..fields['unit_price'] = unitPrice.toStringAsFixed(2)
+      ..files.add(await http.MultipartFile.fromPath('receipt', receiptPath));
+
+    final streamed = await req.send().timeout(const Duration(seconds: 60));
+    final res = await http.Response.fromStream(streamed);
+    final json = jsonDecode(res.body) as Map<String, dynamic>;
+
+    return CheckoutResult(
+      res.statusCode == 200 && json['success'] == true,
+      json['message']?.toString() ?? fallback,
+    );
+  } catch (_) {
+    return const CheckoutResult(false, fallback);
+  }
 }

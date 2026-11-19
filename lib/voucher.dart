@@ -109,24 +109,27 @@ class VoucherCardList extends StatelessWidget {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    item.image.isNotEmpty ? item.image : '',
-                                fit: BoxFit.cover,
-                                height: 180,
-                                width: double.infinity,
-                                memCacheHeight: 540,
-                                errorWidget: (context, url, error) =>
-                                    Container(
-                                  height: 180,
-                                  color: Colors.grey[300],
-                                  child: const Icon(Icons.error, size: 50),
-                                ),
-                                placeholder: (context, url) => Container(
-                                  height: 180,
-                                  color: palette.card,
-                                  child: Center(
-                                    child: CircularProgressIndicator(color: palette.accent),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: AspectRatio(
+                                  aspectRatio: 1.8,
+                                  child: CachedNetworkImage(
+                                    imageUrl: item.image,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    memCacheWidth: 1080,
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                      color: Colors.grey[300],
+                                      child: const Icon(Icons.error, size: 50),
+                                    ),
+                                    placeholder: (context, url) => Container(
+                                      color: palette.card,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                            color: palette.accent),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -221,7 +224,8 @@ class VoucherCardList extends StatelessWidget {
                                     child: Text(
                                       item.voucher,
                                       style: TextStyle(
-                                        color: Colors.white.withValues(alpha: 0.95),
+                                        color: Colors.white
+                                            .withValues(alpha: 0.95),
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -427,7 +431,8 @@ class _VoucherScreenState extends State<VoucherScreen> {
                   );
                 } else if (snapshot.hasError) {
                   return ErrorStateView(
-                    message: 'Could not load vouchers.\nCheck your connection and try again.',
+                    message:
+                        'Could not load vouchers.\nCheck your connection and try again.',
                     onRetry: _retry,
                   );
                 } else if (snapshot.hasData) {
@@ -439,7 +444,8 @@ class _VoucherScreenState extends State<VoucherScreen> {
                   );
                 } else {
                   return ErrorStateView(
-                    message: 'Could not load vouchers.\nCheck your connection and try again.',
+                    message:
+                        'Could not load vouchers.\nCheck your connection and try again.',
                     onRetry: _retry,
                   );
                 }

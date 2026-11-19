@@ -124,6 +124,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "金马仑高原是马来西亚最著名的高地度假胜地，气候温和，白天气温约为 25°C，夜间平均气温约为 18°C。高地分为三个小镇：丹那拉打、布律和令吉。殖民时期，英国人在肥沃的山坡上种植茶叶，这一传统至今由当地人延续。从那时起，它已成为马来西亚最大的茶叶出口地。除了茶叶，金马仑还非常适合种植大陆树木、水果和蔬菜。",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "中央市场建于1892年，是以当地手工艺品而闻名的旅游景点...",
     ),
@@ -179,9 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "热带大街P01-09 (一楼), 热带大道, 47410 八打灵再也, 雪兰莪",
     ),
     "ebook": MessageLookupByLibrary.simpleMessage("电子书"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "电子邮件：enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("电子邮件"),
     "error": MessageLookupByLibrary.simpleMessage("发生错误"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage("加载数据时出错"),
     "errorLoadingVersion": MessageLookupByLibrary.simpleMessage("加载版本时出错"),
@@ -590,7 +591,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "4楼, 阳光广场, 双子塔, 吉隆坡市中心, 50088 吉隆坡",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("电话: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("电话"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage("选择语言"),
     "placesOfWorship": MessageLookupByLibrary.simpleMessage("宗教场所"),
     "placesToShop": MessageLookupByLibrary.simpleMessage("购物场所"),
@@ -812,9 +813,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("做什么"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("美食推荐"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "Whatsapp: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage("瓜拉古楼漂流"),
     "whitewaterRaftingContent": MessageLookupByLibrary.simpleMessage(
       "漂流活动在乌鲁雪兰莪河沿岸进行。漂流运动带来了兴奋感，在行程结束时享受自然美景，河岸景色非常迷人。",
@@ -826,9 +825,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "茨厂街, 50000 吉隆坡",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "星期一至星期五: 9:00AM - 6:00PM",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("星期一至星期五"),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage("吉隆坡基督教青年会旅舍"),

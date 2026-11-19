@@ -162,23 +162,23 @@
     "@loadingData": {
       "description": "Pesan yang ditampilkan saat data sedang dimuat"
     },
-    "email": "Email: enquiry@bluedale.com.my",
+    "email": "Email",
     "@email": {
       "description": "Teks untuk kontak email perusahaan"
     },
-    "whatsapp": "Whatsapp: +6012-220 0622",
+    "whatsapp": "Whatsapp",
     "@whatsapp": {
       "description": "Teks untuk kontak WhatsApp perusahaan"
     },
-    "phone": "Telepon: +603-78869219",
+    "phone": "Telepon",
     "@phone": {
       "description": "Teks untuk kontak telepon perusahaan"
     },
-    "address": "alamat",
+    "address": "Alamat",
     "@address": {
       "description": "Teks untuk alamat perusahaan dalam Bahasa Indonesia"
     },
-    "workingHours": "Senin-Jumat: 9:00AM - 6:00PM",
+    "workingHours": "Senin-Jumat",
     "@workingHours": {
       "description": "Teks untuk jam kerja perusahaan"
     },
@@ -2090,7 +2090,8 @@
   "jugraHillContent": "Di Bukit Jugra, di sekitar mercusuar, rasakan sensasi paralayang. Tergantung pada kondisi angin, bulan Maret hingga September cenderung menjadi waktu terbaik untuk melakukannya.",
   "@jugraHillContent": {
     "description": "Deskripsi untuk Bukit Jugra"
-  }
+  },
+  "career_opportunity": "Career Opportunity"
 
   }
   

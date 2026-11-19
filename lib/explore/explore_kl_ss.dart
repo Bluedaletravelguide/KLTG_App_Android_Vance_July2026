@@ -19,19 +19,22 @@ class _SS_Tab extends StatelessWidget {
       load: () => fetchList('appExploreKL_SS', category: category),
       isEmpty: (data) => data.isEmpty,
       builder: (context, data) {
-        final items = data.map((e) => ItemData4(field(e, 'title'), field(e, 'image'), field(e, 'location'), field(e, 'hours'), field(e, 'phone'))).toList();
+        final items = data
+            .map((e) => ItemData4(field(e, 'title'), field(e, 'image'),
+                field(e, 'location'), field(e, 'hours'), field(e, 'phone')))
+            .toList();
         return MyList4(items: items, palette: palette);
       },
     );
   }
 }
 
-
 class ExploreKL_SS2 extends StatefulWidget {
   const ExploreKL_SS2({super.key});
   @override
   _ExploreKL_SS2State createState() => _ExploreKL_SS2State();
 }
+
 class _ExploreKL_SS2State extends State<ExploreKL_SS2> {
   @override
   Widget build(BuildContext context) {
@@ -52,11 +55,17 @@ class _ExploreKL_SS2State extends State<ExploreKL_SS2> {
               child: TabBar(
                 indicatorColor: palette.accent,
                 indicatorWeight: 3,
-                tabs: [Tab(text: S.of(context).mustVisit), Tab(text: S.of(context).museums), Tab(text: S.of(context).klArtScene)],
+                tabs: [
+                  Tab(text: S.of(context).mustVisit),
+                  Tab(text: S.of(context).museums),
+                  Tab(text: S.of(context).klArtScene)
+                ],
                 labelColor: palette.textPrimary,
                 unselectedLabelColor: palette.textSecondary,
-                labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                labelStyle:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                unselectedLabelStyle: const TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 14),
               ),
             ),
           ),
@@ -74,15 +83,16 @@ class _ExploreKL_SS2State extends State<ExploreKL_SS2> {
         body: Container(
           color: palette.background,
           child: TabBarView(children: [
-            _SS_Tab(category: 'mustvisit', palette: palette),
-            _SS_Tab(category: 'museums', palette: palette),
-            _SS_Tab(category: 'artscene', palette: palette),
+            _SS_Tab(category: 'mv', palette: palette),
+            _SS_Tab(category: 'mm', palette: palette),
+            _SS_Tab(category: 'art', palette: palette),
           ]),
         ),
       ),
     );
   }
 }
+
 class ItemData4 {
   final String text;
   final String imageUrl;
@@ -140,7 +150,9 @@ class MyList4 extends StatelessWidget {
                     placeholder: (context, url) => Container(
                       height: 200,
                       color: palette.card,
-                      child: Center(child: CircularProgressIndicator(color: palette.accent)),
+                      child: Center(
+                          child:
+                              CircularProgressIndicator(color: palette.accent)),
                     ),
                     errorWidget: (context, url, error) => Container(
                       height: 200,
@@ -207,8 +219,8 @@ class MyList4 extends StatelessWidget {
                       if (items[index].contact.isNotEmpty) ...[
                         const SizedBox(height: 10.0),
                         InkWell(
-                          onTap: () =>
-                              UrlService.launchURL('tel:${items[index].contact}'),
+                          onTap: () => UrlService.launchURL(
+                              'tel:${items[index].contact}'),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

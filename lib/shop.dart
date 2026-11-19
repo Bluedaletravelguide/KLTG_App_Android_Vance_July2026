@@ -8,7 +8,9 @@ import 'package:kltheguide/widgets/listing_card.dart';
 import 'generated/l10n.dart';
 
 class Shop extends StatefulWidget {
-  const Shop({super.key});
+  final String? title;
+
+  const Shop({super.key, this.title});
 
   @override
   _ShopState createState() => _ShopState();
@@ -26,7 +28,7 @@ class _ShopState extends State<Shop> {
         elevation: 0,
         iconTheme: IconThemeData(color: palette.accent),
         title: Text(
-          S.of(context).placesToShop,
+          widget.title ?? S.of(context).placesToShop,
           style: TextStyle(
             fontFamily: 'Raleway',
             fontWeight: FontWeight.w800,
@@ -63,4 +65,3 @@ class _ShopState extends State<Shop> {
     );
   }
 }
-

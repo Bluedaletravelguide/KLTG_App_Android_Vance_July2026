@@ -13,7 +13,6 @@ import 'services/url_service.dart';
 import 'services/weather_service.dart';
 import 'travel_tools_page.dart';
 import 'trip_planner_page.dart';
-import 'ebook_page.dart';
 import 'widgets/quick_access_tile.dart';
 
 // Redesigned Home tab (magazine-style greeting + weather + highlight cards).
@@ -143,6 +142,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 const SizedBox(height: 24),
                 _buildQuickAccess(palette),
                 const SizedBox(height: 30),
+                _buildPrintGuideBanner(palette),
+                const SizedBox(height: 30),
                 _buildSectionTitle(S.of(context).klHighlights, palette),
                 const SizedBox(height: 14),
                 _buildHighlightsGrid(
@@ -151,8 +152,6 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 _buildSectionTitle(S.of(context).recommendations, palette),
                 const SizedBox(height: 14),
                 _buildRecommendationsRow(rmdImages, titlesRmd, palette),
-                const SizedBox(height: 18),
-                _buildPrintGuideBanner(palette),
                 const SizedBox(height: 30),
                 _buildSectionTitle('Stay Connected', palette),
                 const SizedBox(height: 14),
@@ -486,22 +485,16 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
 
   Widget _buildPrintGuideBanner(HomePalette palette) {
     void openGuide() {
-      if (widget.onNavigateToTab != null) {
-        widget.onNavigateToTab!(3); // index Ebook tab dalam NavigationBar
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => Ebook()),
-        );
-      }
+      Navigator.pushNamed(context, '/merchandise');
     }
 
     return Column(
       children: [
         Material(
-          color: const Color(0xFF08795F),
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.all(Radius.circular(11)),
           child: InkWell(
+            onTap: openGuide,
             borderRadius: const BorderRadius.all(Radius.circular(11)),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),

@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "คาเมรอน ไฮแลนด์ เป็นสถานที่พักผ่อนบนภูเขาที่มีชื่อเสียงที่สุดของมาเลเซีย มีอากาศเย็นสบาย อุณหภูมิในช่วงกลางวันประมาณ 25°C และในช่วงกลางคืนประมาณ 18°C พื้นที่สูงนี้แบ่งออกเป็นสามเขต: ทานาห์ ราตะ บรินชาง และริงเล็ต ในยุคอาณานิคม ชาวอังกฤษปลูกชาบนเนินเขาที่อุดมสมบูรณ์ และปัจจุบันกลายเป็นผู้ส่งออกชารายใหญ่ที่สุดของมาเลเซีย นอกจากชาแล้ว คาเมรอนยังเหมาะสำหรับการปลูกต้นไม้ ผลไม้ และผักแบบทวีป",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "ตลาดเซ็นทรัลมาร์เก็ต สร้างในปี พ.ศ. 2435...",
     ),
@@ -214,9 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "drJaneClinicPhone": MessageLookupByLibrary.simpleMessage(""),
     "ebook": MessageLookupByLibrary.simpleMessage("อีบุ๊ค"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "อีเมล: enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("อีเมล"),
     "error": MessageLookupByLibrary.simpleMessage("เกิดข้อผิดพลาด"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "เกิดข้อผิดพลาดในการโหลดข้อมูล",
@@ -727,7 +728,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "ชั้น 4, Suria KLCC, อาคารคู่เปโตรนาส, ใจกลางเมืองกัวลาลัมเปอร์, 50088 กัวลาลัมเปอร์",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("โทรศัพท์: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("โทรศัพท์"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage("เลือกภาษา"),
     "placesOfWorship": MessageLookupByLibrary.simpleMessage(
       "สถานที่สักการะบูชา",
@@ -1001,9 +1002,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("สิ่งที่ต้องทำ"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("อาหารที่ต้องลอง"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "Whatsapp: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "ล่องแก่งที่กัวลาคูบูบารู",
     ),
@@ -1020,7 +1019,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ถนนเปตาลิง, 50000 กัวลาลัมเปอร์",
     ),
     "workingHours": MessageLookupByLibrary.simpleMessage(
-      "เวลาทำการ: จันทร์-ศุกร์: 9:00น. - 18:00น.",
+      "เวลาทำการ: จันทร์-ศุกร์",
     ),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),

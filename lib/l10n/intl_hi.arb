@@ -162,15 +162,15 @@
     "@loadingData": {
       "description": "डेटा लोड होने के दौरान दिखाया गया संदेश"
     },
-    "email": "ईमेल: enquiry@bluedale.com.my",
+    "email": "ईमेल",
     "@email": {
       "description": "कंपनी के ईमेल संपर्क के लिए पाठ"
     },
-    "whatsapp": "व्हाट्सएप: +6012-220 0622",
+    "whatsapp": "व्हाट्सएप",
     "@whatsapp": {
       "description": "कंपनी के व्हाट्सएप संपर्क के लिए पाठ"
     },
-    "phone": "फोन: +603-78869219",
+    "phone": "फोन",
     "@phone": {
       "description": "कंपनी के फोन संपर्क के लिए पाठ"
     },
@@ -178,7 +178,7 @@
     "@address": {
       "description": "कंपनी के पते के लिए पाठ हिंदी में"
     },
-    "workingHours": "सोमवार-शुक्रवार: सुबह 9:00 - शाम 6:00",
+    "workingHours": "सोमवार-शुक्रवार",
     "@workingHours": {
       "description": "कंपनी के कार्य घंटे के लिए पाठ"
     },
@@ -2045,6 +2045,7 @@
   "jugraHillContent": "जुगरा हिल के लाइटहाउस से पैराग्लाइडिंग का रोमांच महसूस करें। हवा की स्थिति के अनुसार, मार्च से सितंबर का समय इसे करने के लिए सबसे अच्छा माना जाता है।",
   "@jugraHillContent": {
     "description": "जुगरा हिल का विवरण"
-  }
+  },
+  "career_opportunity": "Career Opportunity"
 
 }

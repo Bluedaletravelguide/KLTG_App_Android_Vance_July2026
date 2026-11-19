@@ -28,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Contest": MessageLookupByLibrary.simpleMessage("Concours"),
     "EventScreen": MessageLookupByLibrary.simpleMessage("Écran des événements"),
     "aboutUs": MessageLookupByLibrary.simpleMessage("À propos de nous"),
-    "address": MessageLookupByLibrary.simpleMessage("adresse"),
+    "address": MessageLookupByLibrary.simpleMessage("Adresse"),
     "aeonFantasy": MessageLookupByLibrary.simpleMessage("Aeon Fantasy"),
     "aeonFantasyHours": MessageLookupByLibrary.simpleMessage(
       "10h00 - 22h00 (Dim - Jeu), 10h00 - 23h00 (Ven - Sam)",
@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "Les Cameron Highlands sont le lieu de villégiature en montagne le plus fréquenté de Malaisie, avec un climat doux, des températures diurnes avoisinant les 25°C et des températures nocturnes autour de 18°C. Les hauts plateaux se divisent en trois localités : Tanah Rata, Brinchang, et Ringlet. Les Britanniques y cultivaient du thé sur les riches pentes de montagnes fertiles durant la période coloniale, une tradition perpétuée par les locaux. Depuis lors, Cameron Highlands est devenu le plus grand exportateur de thé de Malaisie. En dehors du thé, Cameron est également idéal pour la culture d\'arbres continentaux, de fruits et de légumes.",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "Le Central Market, construit en 1892, est une attraction touristique populaire connue pour ses objets artisanaux locaux...",
     ),
@@ -214,9 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "drJaneClinicPhone": MessageLookupByLibrary.simpleMessage(""),
     "ebook": MessageLookupByLibrary.simpleMessage("E-Livre"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "Email : enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "error": MessageLookupByLibrary.simpleMessage("Une erreur est survenue"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "Erreur de chargement des données",
@@ -725,7 +726,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "Niveau 4, Suria KLCC, Tours jumelles PETRONAS, Centre-ville de Kuala Lumpur, 50088 Kuala Lumpur",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("Téléphone : +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("Téléphone"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage(
       "Choisissez une langue",
     ),
@@ -1007,9 +1008,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("Que faire"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("Que manger"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "Whatsapp : +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "Rafting en Eau Vive à Kuala Kubu Bharu",
     ),
@@ -1023,9 +1022,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "Jalan Petaling, 50000 Kuala Lumpur",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "Lundi-Vendredi : 9h00 - 18h00",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("Lundi-Vendredi "),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage(

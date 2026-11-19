@@ -77,8 +77,8 @@ class ContactUsPage extends StatelessWidget {
                       iconColor: Colors.red,
                       title: S.of(context).email,
                       subtitle: field(info, 'email'),
-                      onTap: () =>
-                          UrlService.launchURL('mailto:${field(info, 'email')}'),
+                      onTap: () => UrlService.launchURL(
+                          'mailto:${field(info, 'email')}'),
                       palette: palette,
                     ),
                     const SizedBox(height: 12),
@@ -87,8 +87,8 @@ class ContactUsPage extends StatelessWidget {
                       iconColor: Colors.green,
                       title: S.of(context).whatsapp,
                       subtitle: field(info, 'whatsapp'),
-                      onTap: () =>
-                          UrlService.launchURL(whatsappUri(field(info, 'whatsapp'))),
+                      onTap: () => UrlService.launchURL(
+                          whatsappUri(field(info, 'whatsapp'))),
                       palette: palette,
                     ),
                     const SizedBox(height: 12),
@@ -108,6 +108,17 @@ class ContactUsPage extends StatelessWidget {
                       subtitle: field(info, 'address'),
                       onTap: () =>
                           UrlService.launchURL(field(info, 'address_map_url')),
+                      showArrow: true,
+                      palette: palette,
+                    ),
+                    const SizedBox(height: 12),
+                    _buildContactCard(
+                      icon: Icons.business_center_rounded,
+                      iconColor: Colors.purple,
+                      title: S.of(context).career_opportunity,
+                      subtitle: field(info, 'career'),
+                      onTap: () =>
+                          UrlService.launchURL(field(info, 'career_url')),
                       showArrow: true,
                       palette: palette,
                     ),
@@ -159,14 +170,9 @@ class ContactUsPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      _buildWorkingHoursRow(
-                          'Monday - Friday', field(info, 'hours_weekday'), palette),
+                      _buildWorkingHoursRow('Monday - Friday',
+                          field(info, 'hours_weekday'), palette),
                       const SizedBox(height: 8),
-                      _buildWorkingHoursRow(
-                          'Saturday', field(info, 'hours_saturday'), palette),
-                      const SizedBox(height: 8),
-                      _buildWorkingHoursRow('Sunday & Public Holidays',
-                          field(info, 'hours_sunday'), palette),
                     ],
                   ),
                 ),
@@ -289,5 +295,4 @@ class ContactUsPage extends StatelessWidget {
       ),
     );
   }
-
 }

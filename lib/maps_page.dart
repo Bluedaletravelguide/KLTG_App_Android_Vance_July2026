@@ -101,9 +101,14 @@ extension on LandmarkCategory {
 // network fetch. There's no "download this region" flow — just: once
 // you've viewed an area with a connection, it stays viewable without one.
 class _CachedTileProvider extends TileProvider {
+  _CachedTileProvider({super.headers});
+
   @override
   ImageProvider getImage(TileCoordinates coordinates, TileLayer options) =>
-      CachedNetworkImageProvider(getTileUrl(coordinates, options));
+      CachedNetworkImageProvider(
+        getTileUrl(coordinates, options),
+        headers: headers,
+      );
 }
 
 class MapsPage extends StatefulWidget {
@@ -124,8 +129,7 @@ class _MapsPageState extends State<MapsPage> {
   Landmark? _selectedLandmark;
   final Set<LandmarkCategory> _hiddenCategories = {};
 
-  HomePalette get _palette =>
-      HomePalette.of(context);
+  HomePalette get _palette => HomePalette.of(context);
 
   @override
   void initState() {
@@ -153,8 +157,8 @@ class _MapsPageState extends State<MapsPage> {
       return;
     }
 
-    final pos =
-        await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    final pos = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
     if (mounted) setState(() => _userPosition = pos);
 
     _posSub = Geolocator.getPositionStream(
@@ -264,7 +268,8 @@ class _MapsPageState extends State<MapsPage> {
       title: lm.name,
       imageUrl: '',
       description: lm.blurb,
-      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=${lm.lat},${lm.lng}',
+      mapsUrl:
+          'https://www.google.com/maps/search/?api=1&query=${lm.lat},${lm.lng}',
       category: 'Landmark',
     );
 
@@ -416,7 +421,8 @@ class _MapsPageState extends State<MapsPage> {
 
   void _showNearbyList() {
     final withDistance = landmarks
-        .map((lm) => (landmark: lm, distance: _distanceTo(lm) ?? double.infinity))
+        .map((lm) =>
+            (landmark: lm, distance: _distanceTo(lm) ?? double.infinity))
         .toList()
       ..sort((a, b) => a.distance.compareTo(b.distance));
     final palette = _palette;
@@ -599,7 +605,12 @@ class _MapsPageState extends State<MapsPage> {
                       urlTemplate:
                           'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'my.com.kltheguide',
-                      tileProvider: _CachedTileProvider(),
+                      tileProvider: _CachedTileProvider(
+                        headers: {
+                          'User-Agent':
+                              'KLTheGuide/1.6.0 (my.com.kltheguide; it@bluedale.com.my)',
+                        },
+                      ),
                     ),
                     MarkerLayer(
                       markers: [
@@ -619,15 +630,16 @@ class _MapsPageState extends State<MapsPage> {
                             ),
                         if (_userPosition != null)
                           Marker(
-                            point: LatLng(
-                                _userPosition!.latitude, _userPosition!.longitude),
+                            point: LatLng(_userPosition!.latitude,
+                                _userPosition!.longitude),
                             width: 22,
                             height: 22,
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.blue,
                                 shape: BoxShape.circle,
-                                border: Border.all(color: Colors.white, width: 3),
+                                border:
+                                    Border.all(color: Colors.white, width: 3),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withValues(alpha: 0.3),
@@ -659,7 +671,8 @@ class _MapsPageState extends State<MapsPage> {
                                 padding: const EdgeInsets.all(16),
                                 child: Text(
                                   'No landmarks found',
-                                  style: TextStyle(color: palette.textSecondary),
+                                  style:
+                                      TextStyle(color: palette.textSecondary),
                                 ),
                               )
                             : ListView.builder(
@@ -672,7 +685,8 @@ class _MapsPageState extends State<MapsPage> {
                                         color: palette.accent),
                                     title: Text(
                                       lm.name,
-                                      style: TextStyle(color: palette.textPrimary),
+                                      style:
+                                          TextStyle(color: palette.textPrimary),
                                     ),
                                     onTap: () => _goToLandmark(lm),
                                   );
@@ -711,7 +725,8 @@ class _MapsPageState extends State<MapsPage> {
                             Container(
                               height: 1,
                               width: 40,
-                              color: palette.textSecondary.withValues(alpha: 0.2),
+                              color:
+                                  palette.textSecondary.withValues(alpha: 0.2),
                             ),
                             IconButton(
                               icon: const Icon(Icons.remove),
@@ -760,7 +775,8 @@ class _MapsPageState extends State<MapsPage> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.list, size: 18, color: palette.accent),
+                                Icon(Icons.list,
+                                    size: 18, color: palette.accent),
                                 const SizedBox(width: 8),
                                 Text(
                                   'Nearby',
@@ -792,7 +808,8 @@ class _MapsPageState extends State<MapsPage> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.refresh, size: 18, color: palette.accent),
+                                Icon(Icons.refresh,
+                                    size: 18, color: palette.accent),
                                 const SizedBox(width: 8),
                                 Text(
                                   'Reset View',
@@ -841,8 +858,7 @@ class _MapsPageState extends State<MapsPage> {
                             onClose: _dismissSelection,
                             onViewDetails: () =>
                                 _showLandmarkSheet(_selectedLandmark!),
-                            onAddToTrip: () =>
-                                _addToTrip(_selectedLandmark!),
+                            onAddToTrip: () => _addToTrip(_selectedLandmark!),
                           ),
                   ),
                 ),
@@ -1050,8 +1066,10 @@ class _AddToTripSheet extends StatelessWidget {
           const SizedBox(height: 8),
           for (var i = 0; i < days.length; i++)
             ListTile(
-              leading: Icon(Icons.calendar_today_outlined, color: palette.accent),
-              title: Text(days[i].label, style: TextStyle(color: palette.textPrimary)),
+              leading:
+                  Icon(Icons.calendar_today_outlined, color: palette.accent),
+              title: Text(days[i].label,
+                  style: TextStyle(color: palette.textPrimary)),
               subtitle: Text(
                 '${days[i].items.length} place${days[i].items.length == 1 ? '' : 's'}',
                 style: TextStyle(color: palette.textSecondary),
@@ -1060,8 +1078,10 @@ class _AddToTripSheet extends StatelessWidget {
             ),
           ListTile(
             leading: Icon(Icons.add, color: palette.accent),
-            title: Text('New Day', style: TextStyle(color: palette.textPrimary)),
-            onTap: () => Navigator.of(context).pop(const _TripDayChoice.newDay()),
+            title:
+                Text('New Day', style: TextStyle(color: palette.textPrimary)),
+            onTap: () =>
+                Navigator.of(context).pop(const _TripDayChoice.newDay()),
           ),
           const SizedBox(height: 8),
         ],
