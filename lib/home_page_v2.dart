@@ -13,13 +13,15 @@ import 'services/url_service.dart';
 import 'services/weather_service.dart';
 import 'travel_tools_page.dart';
 import 'trip_planner_page.dart';
+import 'ebook_page.dart';
 import 'widgets/quick_access_tile.dart';
 
 // Redesigned Home tab (magazine-style greeting + weather + highlight cards).
 // Kept alongside the classic `HomeScreen` in home_page.dart — see the
 // "Home Design" toggle in Settings, which lets users switch back instantly.
 class HomeScreenV2 extends StatefulWidget {
-  const HomeScreenV2({super.key});
+  final ValueChanged<int>? onNavigateToTab;
+  const HomeScreenV2({super.key, this.onNavigateToTab});
 
   @override
   State<HomeScreenV2> createState() => _HomeScreenV2State();
@@ -149,6 +151,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 _buildSectionTitle(S.of(context).recommendations, palette),
                 const SizedBox(height: 14),
                 _buildRecommendationsRow(rmdImages, titlesRmd, palette),
+                const SizedBox(height: 18),
+                _buildPrintGuideBanner(palette),
                 const SizedBox(height: 30),
                 _buildSectionTitle('Stay Connected', palette),
                 const SizedBox(height: 14),
@@ -477,6 +481,90 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildPrintGuideBanner(HomePalette palette) {
+    void openGuide() {
+      if (widget.onNavigateToTab != null) {
+        widget.onNavigateToTab!(3); // index Ebook tab dalam NavigationBar
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => Ebook()),
+        );
+      }
+    }
+
+    return Column(
+      children: [
+        Material(
+          color: const Color(0xFF08795F),
+          borderRadius: const BorderRadius.all(Radius.circular(11)),
+          child: InkWell(
+            borderRadius: const BorderRadius.all(Radius.circular(11)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+              child: Row(
+                children: [
+                  const Icon(Icons.menu_book_outlined,
+                      color: Colors.white, size: 24),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Prefer the physical copy?',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          'Get the printed guide delivered to you.',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.95),
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Material(
+          color: palette.card,
+          borderRadius: BorderRadius.circular(11),
+          child: InkWell(
+            onTap: openGuide,
+            borderRadius: BorderRadius.circular(11),
+            child: SizedBox(
+              height: 42,
+              width: double.infinity,
+              child: Center(
+                child: Text(
+                  'Get your copy →',
+                  style: TextStyle(
+                    color: palette.textPrimary,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

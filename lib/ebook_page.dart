@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,6 +12,280 @@ import 'package:kltheguide/services/api_service.dart';
 import 'package:kltheguide/widgets/api_future_view.dart';
 import 'package:kltheguide/services/ad_config.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> _showBuyBookDialog(BuildContext context, String bookName) async {
+  await showDialog<void>(
+    context: context,
+    builder: (dialogContext) => _BuyBookDialog(bookName: bookName),
+  );
+}
+
+class _BuyBookDialog extends StatefulWidget {
+  final String bookName;
+  const _BuyBookDialog({required this.bookName});
+
+  @override
+  State<_BuyBookDialog> createState() => _BuyBookDialogState();
+}
+
+class _BuyBookDialogState extends State<_BuyBookDialog> {
+  final formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final addressController = TextEditingController();
+  final quantityController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    addressController.dispose();
+    quantityController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    InputDecoration fieldDecoration(String hint, IconData icon) =>
+        InputDecoration(
+          hintText: hint,
+          prefixIcon: Icon(icon, color: const Color(0xFF73B5FF), size: 20),
+          hintStyle: const TextStyle(color: Color(0xFF858B9B)),
+          filled: true,
+          fillColor: Colors.white.withValues(alpha: 0.08),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xFF5B9CFF)),
+          ),
+          errorStyle: const TextStyle(color: Color(0xFFFF9B9B)),
+        );
+
+    return AlertDialog(
+      backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      contentPadding: EdgeInsets.zero,
+      content: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+          child: Container(
+            width: 360,
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
+            decoration: BoxDecoration(
+              color: const Color(0xFF101A30).withValues(alpha: 0.94),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: const Color(0xFF4C8AD8).withValues(alpha: 0.55),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF08101F).withValues(alpha: 0.45),
+                  blurRadius: 28,
+                  offset: const Offset(0, 12),
+                ),
+              ],
+            ),
+            child: Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color:
+                                const Color(0xFF4D91F7).withValues(alpha: 0.16),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            Icons.shopping_bag_outlined,
+                            color: Color(0xFF73B5FF),
+                            size: 22,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Buy Book',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 44),
+                      child: Text(
+                        'Fill In The Details To Order This Book',
+                        style: TextStyle(
+                          color: Color(0xFF858B9B),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Divider(color: Color(0xFF293B5D), height: 1),
+                    ),
+                    TextFormField(
+                      controller: nameController,
+                      decoration: fieldDecoration('Name', Icons.person_outline),
+                      style: const TextStyle(color: Colors.white),
+                      validator: (value) =>
+                          value == null || value.trim().isEmpty
+                              ? 'Name is required'
+                              : null,
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration:
+                          fieldDecoration('Email', Icons.email_outlined),
+                      style: const TextStyle(color: Colors.white),
+                      validator: (value) {
+                        final email = value?.trim() ?? '';
+                        if (email.isEmpty) return 'Email is needed';
+                        if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
+                            .hasMatch(email)) {
+                          return 'Invalid email format';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: addressController,
+                      decoration: fieldDecoration(
+                          'Address', Icons.location_on_outlined),
+                      style: const TextStyle(color: Colors.white),
+                      maxLines: 1,
+                      validator: (value) =>
+                          value == null || value.trim().isEmpty
+                              ? 'Address is required'
+                              : null,
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: quantityController,
+                      keyboardType: TextInputType.number,
+                      decoration: fieldDecoration(
+                          'Quantity', Icons.format_list_numbered),
+                      style: const TextStyle(color: Colors.white),
+                      validator: (value) =>
+                          value == null || value.trim().isEmpty
+                              ? 'Quantity is required'
+                              : null,
+                    ),
+                    const SizedBox(height: 14),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            Navigator.pop(context);
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: const Color(0xFF9BA1B0),
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                          ),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        FilledButton.icon(
+                          onPressed: () async {
+                            if (!formKey.currentState!.validate()) return;
+                            FocusScope.of(context).unfocus();
+
+                            final subject = Uri.encodeComponent(
+                              'Book Order - ${widget.bookName}',
+                            );
+                            final body = Uri.encodeComponent([
+                              'Name: ${nameController.text.trim()}',
+                              'Email: ${emailController.text.trim()}',
+                              'Address: ${addressController.text.trim()}',
+                              'Quantity: ${quantityController.text.trim()}',
+                              'Book Name: ${widget.bookName}',
+                            ].join('\n'));
+
+                            final emailUri = Uri.parse(
+                              'mailto:marliantimufpiarlis@gmail.com?subject=$subject&body=$body',
+                            );
+
+                            if (!await canLaunchUrl(emailUri)) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Unable to open email app'),
+                                  ),
+                                );
+                              }
+                              return;
+                            }
+
+                            final launched = await launchUrl(emailUri);
+                            if (!launched) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Unable to open email app'),
+                                  ),
+                                );
+                              }
+                              return;
+                            }
+
+                            if (context.mounted) Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.send_outlined, size: 16),
+                          label: const Text('Submit'),
+                          style: FilledButton.styleFrom(
+                            backgroundColor: const Color(0xFF5798F8),
+                            foregroundColor: const Color(0xFF09244A),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 13,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class CardListWidget extends StatelessWidget {
   final List<ContentItem> data;
@@ -36,6 +312,7 @@ class CardListWidget extends StatelessWidget {
                     builder: (context) => PdfViewerPage(
                       pdfUrl: item.description,
                       pdfTitle: item.title,
+                      freePages: 15,
                     ),
                   ),
                 );
@@ -100,7 +377,8 @@ class CardListWidget extends StatelessWidget {
                             height: 220,
                             color: palette.card,
                             child: Center(
-                              child: CircularProgressIndicator(color: palette.accent),
+                              child: CircularProgressIndicator(
+                                  color: palette.accent),
                             ),
                           ),
                           errorWidget: (context, url, error) => Container(
@@ -175,6 +453,24 @@ class CardListWidget extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 12),
+                        GestureDetector(
+                          onTap: () => _showBuyBookDialog(context, item.title),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: palette.accent.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(
+                              Icons.shopping_bag_rounded,
+                              size: 25,
+                              color: Colors.orangeAccent,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
@@ -183,7 +479,7 @@ class CardListWidget extends StatelessWidget {
                           ),
                           child: Icon(
                             Icons.arrow_forward_ios,
-                            size: 16,
+                            size: 25,
                             color: palette.accent,
                           ),
                         ),
@@ -423,38 +719,73 @@ class CardItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.25),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.5),
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              Icons.auto_stories,
-                              color: Colors.white,
-                              size: 14,
-                            ),
-                            const SizedBox(width: 6),
-                            const Text(
-                              'Read Now',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final compact = constraints.maxWidth < 170;
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Tooltip(
+                                message: 'Read Now',
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: compact ? 8 : 10,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withValues(alpha: 0.25),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color:
+                                          Colors.white.withValues(alpha: 0.5),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.auto_stories,
+                                        color: Colors.white,
+                                        size: 14,
+                                      ),
+                                      if (!compact) ...[
+                                        const SizedBox(width: 6),
+                                        const Text(
+                                          'Read Now',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                              const SizedBox(width: 8),
+                              Tooltip(
+                                message: 'Buy a printed copy',
+                                child: Material(
+                                  color: Colors.white.withValues(alpha: 0.25),
+                                  shape: const CircleBorder(),
+                                  child: InkWell(
+                                    customBorder: const CircleBorder(),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: Icon(
+                                        Icons.shopping_bag_rounded,
+                                        color: Colors.orangeAccent,
+                                        size: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -520,22 +851,53 @@ class _Ebook_viewState extends State<Ebook_view> {
 class PdfViewerPage extends StatefulWidget {
   final String pdfUrl;
   final String pdfTitle;
-  const PdfViewerPage({
-    super.key,
-    required this.pdfUrl,
-    required this.pdfTitle,
-  });
+  final int freePages;
+  const PdfViewerPage(
+      {super.key,
+      required this.pdfUrl,
+      required this.pdfTitle,
+      this.freePages = 15});
 
   @override
   _PdfViewerPageState createState() => _PdfViewerPageState();
 }
 
 class _PdfViewerPageState extends State<PdfViewerPage> {
-  String? filePath;
+  PDFViewController? _controller;
+  bool _locked = false;
+  int _lastAllowedPage = 0;
 
-  @override
-  void initState() {
-    super.initState();
+  void _showLockedDialog() {
+    if (_locked) return; // elak dialog pop berkali-kali
+    _locked = true;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Preview Ends Here'),
+        content: Text(
+          'You\'ve reached the free preview limit (${widget.freePages} pages). '
+          'Buy the full book to continue reading.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // tutup dialog
+              Navigator.pop(context); // keluar dari PDF viewer
+            },
+            child: const Text('Back'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(context); // tutup dialog
+              _showBuyBookDialog(context, widget.pdfTitle);
+            },
+            child: const Text('Buy Book'),
+          ),
+        ],
+      ),
+    ).then((_) => _locked = false);
   }
 
   @override
@@ -559,9 +921,21 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
         ),
         actions: [AppBarMore(iconColor: palette.accent)],
       ),
-      body: const PDF(
-        swipeHorizontal: true,
-      ).cachedFromUrl(
+      body: PDF(
+          swipeHorizontal: true,
+          onViewCreated: (controller) {
+            _controller = controller;
+          },
+          onPageChanged: (page, total) async {
+            if (page == null) return;
+
+            if (page >= widget.freePages) {
+              await _controller?.setPage(_lastAllowedPage);
+              _showLockedDialog();
+            } else {
+              _lastAllowedPage = page;
+            }
+          }).cachedFromUrl(
         widget.pdfUrl,
         placeholder: (double progress) => Center(
           child: Column(
