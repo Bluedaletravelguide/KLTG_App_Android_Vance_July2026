@@ -28,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Contest": MessageLookupByLibrary.simpleMessage("Peraduan"),
     "EventScreen": MessageLookupByLibrary.simpleMessage("Skrin Acara"),
     "aboutUs": MessageLookupByLibrary.simpleMessage("Tentang Kami"),
-    "address": MessageLookupByLibrary.simpleMessage("alamat"),
+    "address": MessageLookupByLibrary.simpleMessage("Alamat"),
     "aeonFantasy": MessageLookupByLibrary.simpleMessage("Aeon Fantasy"),
     "aeonFantasyHours": MessageLookupByLibrary.simpleMessage(
       "10:00 pagi - 10:00 malam (Ahad - Khamis), 10:00 pagi - 11:00 malam (Jumaat - Sabtu)",
@@ -136,6 +136,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "Cameron Highlands adalah tempat percutian tanah tinggi yang paling terkenal di Malaysia dengan iklim sederhana, dengan suhu waktu siang sekitar 25°C dan suhu waktu malam rata-rata sekitar 18°C. Kawasan tanah tinggi ini terbahagi kepada tiga pekan: Tanah Rata, Brinchang, dan Ringlet. Semasa zaman kolonial, orang British menanam teh di lereng bukit yang subur, tradisi yang masih diteruskan oleh penduduk tempatan. Sejak itu, Cameron Highlands telah menjadi pengeksport teh terbesar di Malaysia. Selain teh, Cameron juga sesuai untuk penanaman pokok, buah-buahan, dan sayuran kontinental.",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "Pasar Seni, dibina pada tahun 1892, adalah tarikan pelancong yang terkenal dengan hasil kraf tempatan...",
     ),
@@ -177,9 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "description": MessageLookupByLibrary.simpleMessage("Deskripsi"),
     "details": MessageLookupByLibrary.simpleMessage("Butiran"),
     "ebook": MessageLookupByLibrary.simpleMessage("E-Buku"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "E-mel: enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("E-mel"),
     "error": MessageLookupByLibrary.simpleMessage("Kesalahan telah berlaku"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "Ralat memuatkan data",
@@ -636,7 +637,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "Tingkat 4, Suria KLCC, Menara Berkembar PETRONAS, Kuala Lumpur City Centre, 50088, Kuala Lumpur",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("Telefon: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("Telefon"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage("Pilih Bahasa"),
     "placesOfWorship": MessageLookupByLibrary.simpleMessage("Tempat Ibadah"),
     "placesToShop": MessageLookupByLibrary.simpleMessage(
@@ -882,9 +883,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Apa Yang Perlu Dilakukan",
     ),
     "whatToEat": MessageLookupByLibrary.simpleMessage("Apa Untuk Dimakan"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "Whatsapp: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "Arung Jeram di Kuala Kubu Bharu",
     ),
@@ -898,9 +897,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "Jalan Petaling, 50000 Kuala Lumpur",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "Isnin-Jumaat: 9:00AM - 6:00PM",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("Isnin-Jumaat"),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage(

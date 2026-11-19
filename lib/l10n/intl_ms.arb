@@ -162,23 +162,23 @@
   "@loadingData": {
     "description": "Mesej dipaparkan semasa memuatkan data"
   },
-  "email": "E-mel: enquiry@bluedale.com.my",
+  "email": "E-mel",
   "@email": {
     "description": "Teks untuk maklumat hubungan e-mel syarikat"
   },
-  "whatsapp": "Whatsapp: +6012-220 0622",
+  "whatsapp": "Whatsapp",
   "@whatsapp": {
     "description": "Teks untuk maklumat hubungan WhatsApp syarikat"
   },
-  "phone": "Telefon: +603-78869219",
+  "phone": "Telefon",
   "@phone": {
     "description": "Teks untuk maklumat hubungan telefon syarikat"
   },
-  "address": "alamat",
+  "address": "Alamat",
   "@address": {
     "description": "Teks untuk alamat syarikat dalam bahasa Melayu"
   },
-  "workingHours": "Isnin-Jumaat: 9:00AM - 6:00PM",
+  "workingHours": "Isnin-Jumaat",
   "@workingHours": {
     "description": "Teks untuk waktu bekerja syarikat"
   },
@@ -1643,6 +1643,7 @@
   "jugraHillContent": "Di Bukit Jugra, di sekitar rumah api, rasai keseronokan paragliding. Bergantung pada keadaan angin, bulan Mac hingga September biasanya menjadi masa terbaik untuk melakukannya.",
   "@jugraHillContent": {
     "description": "Deskripsi untuk Bukit Jugra"
-  }
+  },
+  "career_opportunity": "Career Opportunity"
   
 }

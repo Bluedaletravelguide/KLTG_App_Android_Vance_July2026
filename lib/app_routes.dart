@@ -4,6 +4,7 @@ import 'package:kltheguide/ebook_page.dart';
 import 'package:kltheguide/explorekl.dart';
 import 'package:kltheguide/highlights.dart';
 import 'package:kltheguide/medicaltourism.dart';
+import 'package:kltheguide/bookShop.dart';
 import 'package:kltheguide/shop.dart';
 import 'package:kltheguide/spa.dart';
 import 'package:kltheguide/stay.dart';
@@ -13,6 +14,7 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/highlights-1': (context) => GetAround(),
   '/highlights-2': (context) => const TravelTips(),
   '/rmd-0': (context) => ExploreKL(),
+  '/merchandise': (context) => const BookShop(),
   '/explorekl-0': (context) => ExploreKL_WTD(),
   '/explorekl-1': (context) => const ExploreKL_HS2(),
   '/explorekl-2': (context) => const ExploreKL_PWOR2(),
@@ -53,10 +55,12 @@ final Map<String, WidgetBuilder> appRoutes = {
       const Ebook_view(category: 'prtg', name: 'Perak The Guide'),
   '/ebook-10': (context) =>
       const Ebook_view(category: 'sbtg', name: 'Seremban The Guide'),
-  '/ebook-11': (context) => const Ebook_view(
-      category: 'kstg', name: 'Kuala Selangor The Guide'),
+  '/ebook-11': (context) =>
+      const Ebook_view(category: 'kstg', name: 'Kuala Selangor The Guide'),
   '/ebook-12': (context) =>
       const Ebook_view(category: 'klgt', name: 'Kuala Langat The Guide'),
   '/ebook-13': (context) =>
       const Ebook_view(category: 'kztg', name: 'Kazakhstan The Guide'),
+  '/ebook-14': (context) =>
+      const Ebook_view(category: 'OtherBooks', name: 'Other Books'),
 };

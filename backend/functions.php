@@ -30,20 +30,23 @@ function envv($k, $d = null)
     return ($v !== false && $v !== '') ? $v : $d;
 }
 
-// Try to get credentials from environment first
-$db_host = envv('DB_HOST', 'localhost');  // default localhost
-$db_user = envv('DB_USER', 'kltheguidecom_user');
-$db_pass = envv('DB_PASS', '');
-$db_name = envv('DB_NAME', 'kltheguidecom_bluedale2_kltg');
+// First non-empty value among several env keys.
+function envv_any(array $keys, $d = null)
+{
+    foreach ($keys as $k) {
+        $v = envv($k);
+        if ($v !== null && $v !== '') return $v;
+    }
+    return $d;
+}
 
-// Gemini API key for the Travel Buddy AI action (appTravelBuddyAI below).
-// Free-tier key from the intern4bluedale@gmail.com Google AI Studio account.
-$gemini_api_key = envv('GEMINI_API_KEY', '');
-
-// OneSignal push notification credentials (send_push_notification below).
-$onesignal_app_id = envv('ONESIGNAL_APP_ID', '');
-$onesignal_rest_api_key = envv('ONESIGNAL_REST_API_KEY', '');
-$push_admin_secret = envv('PUSH_ADMIN_SECRET', '');
+// The .env names the KLTG credentials DB_USER2/DB_PASSWORD2/DB_DATABASE2;
+// DB_USER/DB_PASSWORD/DB_DATABASE belong to a different server, so they must
+// never be mixed in. Read the *2 keys first, then the unsuffixed ones.
+$db_host = envv_any(['DB_HOST'], 'localhost');
+$db_user = envv_any(['DB_USER2', 'DB_USER'], 'kltheguidecom_user');
+$db_pass = envv_any(['DB_PASSWORD2', 'DB_PASS', 'DB_PASSWORD'], 've5L$u6LDRey');
+$db_name = envv_any(['DB_DATABASE2', 'DB_NAME', 'DB_DATABASE'], 'kltheguidecom_bluedale2_kltg');
 
 
 // Fallback: detect environment if no env vars
@@ -61,11 +64,11 @@ if (!$db_host || !$db_user || !$db_name) {
         $db_name = 'kltheguide';  // change if your local DB name differs
     } else {
         // PRODUCTION SETTINGS
-        // â ï¸ REPLACE THESE WITH YOUR ACTUAL PRODUCTION CREDENTIALS â ï¸
+        // âš ï¸ REPLACE THESE WITH YOUR ACTUAL PRODUCTION CREDENTIALS âš ï¸
         $db_host = 'localhost';
-        $db_user = 'YOUR_PRODUCTION_DB_USER';      // â CHANGE THIS
-        $db_pass = 'YOUR_PRODUCTION_DB_PASSWORD';  // â CHANGE THIS
-        $db_name = 'YOUR_PRODUCTION_DB_NAME';      // â CHANGE THIS
+        $db_user = 'YOUR_PRODUCTION_DB_USER';      // â† CHANGE THIS
+        $db_pass = 'YOUR_PRODUCTION_DB_PASSWORD';  // â† CHANGE THIS
+        $db_name = 'YOUR_PRODUCTION_DB_NAME';      // â† CHANGE THIS
     }
 }
 
@@ -86,7 +89,7 @@ if (!$db) {
         echo json_encode(['error' => 'Database unavailable. Please try again later.']);
     } else {
         http_response_code(503);
-        echo '<!DOCTYPE html><html><head><title>Maintenance</title></head><body>';
+        echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Maintenance</title></head><body>';
         echo '<h2>We\'re experiencing technical difficulties</h2>';
         echo '<p>Please try again in a few moments.</p></body></html>';
     }
@@ -161,10 +164,14 @@ function send_email_html(string $to, string $subject, string $html, ?string $fro
     $mail = new PHPMailer(true);
     try {
         // Prioritas pakai akun website (it@bluedale.com.my)
-
+        
+        //$host = 'mail.bluedale.com.my' ?? 'mail.bluedale.com.my';
+        //$user = 'marketing@bluedale.com.my' ?? 'marketing@bluedale.com.my';
+        //$pass = 'BluedaleMarketing#001' ?? 'BluedaleMarketing#001';
+        
         $host = $_ENV['MAIL_HOST4'] ?? 'mail.bluedale.com.my';
         $user = $_ENV['MAIL_USER4'] ?? 'marketing@bluedale.com.my';
-        $pass = $_ENV['MAIL_PASS4'] ?? '';
+        $pass = $_ENV['MAIL_PASS4'] ?? 'BluedaleMarketing#001';
         $port = (int)($_ENV['MAIL_PORT1'] ?? 465); // 465=SSL, 587=TLS
 
         if (!$host || !$user || !$pass) {
@@ -307,7 +314,7 @@ function queue_or_send_email(string $to_email, string $subject, string $html, ?s
         $sent = send_email_html($to_email, $subject, $html, $from_name ?: brand_name());
         if ($sent) return true;
 
-        // kalau gagal â masukkan ke mailqueue
+        // kalau gagal â†’ masukkan ke mailqueue
         global $db;
         $status = '0';
         $stmt = mysqli_prepare($db, "INSERT INTO mailqueue (sendstatus, sendto, sendtitle, sendbody) VALUES (?,?,?,?)");
@@ -385,28 +392,28 @@ function uploadimage($formname, $folder, $category)
     $name = preg_replace('/[^a-zA-Z0-9._-]/', '', basename($formname['name']));
     $target = $dir . $name;
 
-    // 1ï¸â£ Validate extension
+    // 1ï¸âƒ£ Validate extension
     $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
     if (!in_array($ext, $allowed_ext)) {
         return false;
     }
 
-    // 2ï¸â£ Validate actual image (NO fileinfo)
+    // 2ï¸âƒ£ Validate actual image (NO fileinfo)
     if (!getimagesize($formname['tmp_name'])) {
         return false;
     }
 
-    // 3ï¸â£ Check file size (5MB)
+    // 3ï¸âƒ£ Check file size (5MB)
     if ($formname['size'] > 5 * 1024 * 1024) {
         return false;
     }
 
-    // 4ï¸â£ Prevent overwrite
+    // 4ï¸âƒ£ Prevent overwrite
     if (file_exists($target)) {
         return false;
     }
 
-    // 5ï¸â£ Move file
+    // 5ï¸âƒ£ Move file
     return move_uploaded_file($formname['tmp_name'], $target) ? $name : false;
 }
 
@@ -420,13 +427,13 @@ function uploadpdf($formname, $folder, $category)
     $name = preg_replace('/[^a-zA-Z0-9._-]/', '', basename($formname['name']));
     $target = $dir . $name;
 
-    // 1ï¸â£ Validate extension
+    // 1ï¸âƒ£ Validate extension
     $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
     if ($ext !== 'pdf') {
         return false;
     }
 
-    // 2ï¸â£ Validate real PDF (magic header)
+    // 2ï¸âƒ£ Validate real PDF (magic header)
     $fh = fopen($formname['tmp_name'], 'rb');
     if (!$fh) return false;
     $header = fread($fh, 4);
@@ -436,17 +443,17 @@ function uploadpdf($formname, $folder, $category)
         return false;
     }
 
-    // 3ï¸â£ Prevent overwrite
+    // 3ï¸âƒ£ Prevent overwrite
     if (file_exists($target)) {
         return false;
     }
 
-    // 4ï¸â£ File size limit (20MB)
+    // 4ï¸âƒ£ File size limit (20MB)
     if ($formname['size'] > 20 * 1024 * 1024) {
         return false;
     }
 
-    // 5ï¸â£ Move file
+    // 5ï¸âƒ£ Move file
     return move_uploaded_file($formname['tmp_name'], $target) ? $name : false;
 }
 
@@ -559,7 +566,7 @@ function render_email_html(
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width">
   <title>' . htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') . '</title>
   <style>
@@ -599,13 +606,13 @@ function upload_email_asset(array $file, string $subdir, ?string $username, mysq
         throw new RuntimeException('Upload error');
     }
 
-    // 1ï¸â£ Validate real image (NO fileinfo)
+    // 1ï¸âƒ£ Validate real image (NO fileinfo)
     $dim = @getimagesize($file['tmp_name']);
     if ($dim === false) {
         throw new RuntimeException('Invalid image file');
     }
 
-    // 2ï¸â£ Validate extension
+    // 2ï¸âƒ£ Validate extension
     $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
     if (!in_array($ext, $allowed_ext, true)) {
@@ -622,7 +629,7 @@ function upload_email_asset(array $file, string $subdir, ?string $username, mysq
     ];
     $ext = $extMap[$ext] ?? '.bin';
 
-    // 3ï¸â£ Directory structure
+    // 3ï¸âƒ£ Directory structure
     $y = date('Y');
     $m = date('m');
     $relDir = "assets/email/$y/$m";
@@ -631,16 +638,16 @@ function upload_email_asset(array $file, string $subdir, ?string $username, mysq
         mkdir($absDir, 0775, true);
     }
 
-    // 4ï¸â£ Generate safe filename
+    // 4ï¸âƒ£ Generate safe filename
     $name = bin2hex(random_bytes(8)) . $ext;
     $absPath = "$absDir/$name";
 
-    // 5ï¸â£ Store file
+    // 5ï¸âƒ£ Store file
     if (!move_uploaded_file($file['tmp_name'], $absPath)) {
         throw new RuntimeException('Failed to store file');
     }
 
-    // 6ï¸â£ Optional: strip EXIF for JPEG
+    // 6ï¸âƒ£ Optional: strip EXIF for JPEG
     if ($ext === '.jpg' && function_exists('exif_read_data')) {
         $img = @imagecreatefromjpeg($absPath);
         if ($img) {
@@ -656,7 +663,7 @@ function upload_email_asset(array $file, string $subdir, ?string $username, mysq
     $w = $dim[0] ?? null;
     $h = $dim[1] ?? null;
 
-    // 7ï¸â£ Save to DB
+    // 7ï¸âƒ£ Save to DB
     $stmt = $db->prepare("
         INSERT INTO email_assets
         (path, url, filename, size, width, height, uploaded_by)
@@ -776,7 +783,7 @@ if (isset($_POST['reg_user'])) {
     }
 
 
-    // first check the database to make sure
+    // first check the database to make sure 
     // a user does not already exist with the same username and/or email
     $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
     $result = mysqli_query($db, $user_check_query);
@@ -796,7 +803,7 @@ if (isset($_POST['reg_user'])) {
     if (count($errors) == 0) {
         $password = md5($password_1); //encrypt the password before saving in the database
 
-        $query = "INSERT INTO users (username, email, password)
+        $query = "INSERT INTO users (username, email, password) 
   			  VALUES('$username', '$email', '$password')";
         mysqli_query($db, $query);
         $_SESSION['username'] = $username;
@@ -808,8 +815,8 @@ if (isset($_POST['reg_user'])) {
 
 // LOGIN USER
 if (isset($_POST['login_user'])) {
-    $username = mysqli_real_escape_string($db, $_POST['username']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
+    $username = trim($_POST['username'] ?? '');
+    $password = (string)($_POST['password'] ?? '');
 
     if (empty($username)) {
         array_push($errors, "Username is required");
@@ -819,13 +826,30 @@ if (isset($_POST['login_user'])) {
     }
 
     if (count($errors) == 0) {
-        $password = md5($password);
-        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $results = mysqli_query($db, $query);
-        if (mysqli_num_rows($results) == 1) {
+        $stmt = mysqli_prepare($db, "SELECT password FROM users WHERE username = ?");
+        mysqli_stmt_bind_param($stmt, 's', $username);
+        mysqli_stmt_execute($stmt);
+        $row = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+        mysqli_stmt_close($stmt);
+
+        // The users table holds a mix of hash formats: bcrypt (60 chars, from
+        // password_hash) and legacy md5. Older md5 rows hashed the *escaped*
+        // password, so that variant is accepted too.
+        $stored = $row['password'] ?? '';
+        if ($stored === '') {
+            $matches = false;
+        } elseif (strlen($stored) === 32) {
+            $matches = hash_equals($stored, md5($password))
+                || hash_equals($stored, md5(mysqli_real_escape_string($db, $password)));
+        } else {
+            $matches = password_verify($password, $stored);
+        }
+
+        if ($matches) {
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
             header('location: index.php');
+            exit;
         } else {
             array_push($errors, "Wrong username/password combination");
         }
@@ -872,7 +896,7 @@ if (isset($_POST['subscribe'])) {
 
     if ($user) {
     } else {
-        $query = "INSERT INTO emailsub (emailsub_name, emailsub_email, emailsub_country, emailsub_consent)
+        $query = "INSERT INTO emailsub (emailsub_name, emailsub_email, emailsub_country, emailsub_consent) 
                   VALUES('', '$email', '$country', '$monthly_updates')";
         mysqli_query($db, $query);
 
@@ -935,7 +959,7 @@ if (isset($_POST['sendinternal'])) {
         } else {
             $emailtitle = $_POST['emailtitle'];
         }
-        $query4 = "INSERT INTO mailqueue (sendstatus, sendto, sendtitle,sendbody)
+        $query4 = "INSERT INTO mailqueue (sendstatus, sendto, sendtitle,sendbody) 
         VALUES('0' , '$sendto' , '$emailtitle', '$output')";
         $result4 = mysqli_query($db, $query4);
         if (!empty($result4)) {
@@ -962,7 +986,7 @@ if (isset($_POST['queuemail'])) {
 
     $emailcontent = $_POST['emailcontent'];
 
-    $query4 = "INSERT INTO emailcampaign (name, file,title)
+    $query4 = "INSERT INTO emailcampaign (name, file,title) 
     VALUES('$emailcontent' , '$file','$emailtitle')";
     $result4 = mysqli_query($db, $query4);
     if (!empty($result4)) {
@@ -985,7 +1009,7 @@ if (isset($_POST['queuemail'])) {
         } else {
             $emailtitle = $_POST['emailtitle'];
         }
-        $query4 = "INSERT INTO mailqueue (sendstatus, sendto, sendtitle,sendbody)
+        $query4 = "INSERT INTO mailqueue (sendstatus, sendto, sendtitle,sendbody) 
         VALUES('0' , '$sendto' , '$emailtitle', '$file')";
         $result4 = mysqli_query($db, $query4);
         if (!empty($result4)) {
@@ -1087,13 +1111,15 @@ if (isset($_POST['sub'])) {
     var_dump(json_decode($_POST["sub"], true));
 
 
-    $query = "INSERT INTO pushsub (endpoint, p256dh, auth)
+    $query = "INSERT INTO pushsub (endpoint, p256dh, auth) 
     VALUES('$endpoint', '$p256dh', '$auth')";
     mysqli_query($db, $query);
 }
 
 
 include 'pagefunctions/sub.php';
+
+include 'pagefunctions/app-api.php';
 
 include 'pagefunctions/edit-index.php';
 include 'pagefunctions/edit-pageviews.php';
@@ -1135,10 +1161,10 @@ if (isset($_POST['fetch_events'])) {
 
     // Fetch events for the current month and year or January of the next year
     $query = "
-        SELECT event_title, event_content, event_location, event_image, event_day, event_month, event_year
-        FROM event
-        WHERE
-            (event_year = $currentYear AND event_month >= $currentMonth)
+        SELECT event_title, event_content, event_location, event_image, event_day, event_month, event_year 
+        FROM event 
+        WHERE 
+            (event_year = $currentYear AND event_month >= $currentMonth) 
             OR (event_year = $currentYear + 1 AND event_month = 1)
     ";
 
@@ -1169,8 +1195,8 @@ if (isset($_POST['fetch_vouchers'])) {
     $myArray = array();
 
     // Select all vouchers from the voucher table
-    $query = "SELECT voucher, voucher_title, voucher_image, voucher_expiry_date
-              FROM voucher
+    $query = "SELECT voucher, voucher_title, voucher_image, voucher_expiry_date 
+              FROM voucher 
               ORDER BY voucher_expiry_date ASC";
 
     $result = mysqli_query($db, $query);
@@ -1185,63 +1211,6 @@ if (isset($_POST['fetch_vouchers'])) {
     }
 
     echo json_encode($myArray);
-}
-
-// Broadcasts a push notification to all subscribed devices via the OneSignal
-// REST API. Returns the decoded OneSignal response, or an array with an
-// 'error' key on failure.
-function sendOneSignalNotification($onesignal_app_id, $onesignal_rest_api_key, $title, $message)
-{
-    $payload = [
-        'app_id' => $onesignal_app_id,
-        'included_segments' => ['Subscribed Users'],
-        'headings' => ['en' => $title],
-        'contents' => ['en' => $message],
-    ];
-
-    $ch = curl_init('https://onesignal.com/api/v1/notifications');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json; charset=utf-8',
-        'Authorization: Basic ' . $onesignal_rest_api_key,
-    ]);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curlError = curl_error($ch);
-    curl_close($ch);
-
-    if ($response === false || $httpCode >= 300) {
-        error_log('sendOneSignalNotification failed [' . $httpCode . '] ' . $curlError . ' ' . $response);
-        return ['error' => 'OneSignal request failed'];
-    }
-
-    return json_decode($response, true);
-}
-
-// Manually-triggered broadcast lever (e.g. "new voucher available"). Not yet
-// wired into any admin content-creation flow — see plan notes for that
-// follow-up. Requires admin_secret since this can push to every install.
-if (isset($_POST['send_push_notification'])) {
-    if (!$push_admin_secret || !hash_equals($push_admin_secret, (string)($_POST['admin_secret'] ?? ''))) {
-        http_response_code(403);
-        echo json_encode(['error' => 'Forbidden']);
-        exit;
-    }
-
-    $title = urldecode($_POST['title'] ?? 'KL The Guide');
-    $message = urldecode($_POST['message'] ?? '');
-
-    if ($message === '') {
-        http_response_code(400);
-        echo json_encode(['error' => 'message is required']);
-        exit;
-    }
-
-    $result = sendOneSignalNotification($onesignal_app_id, $onesignal_rest_api_key, $title, $message);
-    echo json_encode($result);
 }
 
 if (isset($_POST['appExploreKL_WTD'])) {
@@ -1584,46 +1553,17 @@ if (isset($_POST['appMedicalT_oph'])) {
     $result = mysqli_query($db, $query);
     $counter = 0;
 
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
 
-            $myArray[] = [
-                'title' => urldecode($row['title']),
-                'content' => urldecode($row['content']),
-                'image' => 'https://www.kltheguide.com.my/' . 'assets/img/medical_tourism/oph/' . urldecode($row['image']),
-                'location' => urldecode($row['location']),
-                'locationurl' => urldecode($row['locationurl']),
-                'hours' => urldecode($row['hours']),
-                'phone' => urldecode($row['phone']),
-            ];
-        }
-    }
-    echo json_encode($myArray);
-}
-
-// Plastic Surgery tab — the 5th Medical Tourism category the Flutter app
-// requests (lib/medicaltourism.dart) but which had no handler here at all,
-// so it silently returned an empty response. Mirrors the hc/dtl/der/oph
-// blocks above; if medical_tourism_ps doesn't exist yet in the DB, this
-// degrades to an empty list instead of erroring.
-if (isset($_POST['appMedicalT_ps'])) {
-    $myArray = array();
-    $query = "SELECT medical_tourism_ps_title as title,medical_tourism_ps_location as location , medical_tourism_ps_image as image , medical_tourism_ps_content as content , medical_tourism_ps_locationurl as locationurl , medical_tourism_ps_hours as hours , medical_tourism_ps_hours as hours FROM medical_tourism_ps ORDER BY medical_tourism_ps_order DESC ";
-    $result = mysqli_query($db, $query);
-
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-
-            $myArray[] = [
-                'title' => urldecode($row['title']),
-                'content' => urldecode($row['content']),
-                'image' => 'https://www.kltheguide.com.my/' . 'assets/img/medical_tourism/ps/' . urldecode($row['image']),
-                'location' => urldecode($row['location']),
-                'locationurl' => urldecode($row['locationurl']),
-                'hours' => urldecode($row['hours']),
-                'phone' => urldecode($row['phone']),
-            ];
-        }
+        $myArray[] = [
+            'title' => urldecode($row['title']),
+            'content' => urldecode($row['content']),
+            'image' => 'https://www.kltheguide.com.my/' . 'assets/img/medical_tourism/oph/' . urldecode($row['image']),
+            'location' => urldecode($row['location']),
+            'locationurl' => urldecode($row['locationurl']),
+            'hours' => urldecode($row['hours']),
+            'phone' => urldecode($row['phone']),
+        ];
     }
     echo json_encode($myArray);
 }
@@ -1818,28 +1758,272 @@ if (isset($_POST['appBeyondKL_es'])) {
 
 
 if (isset($_POST['appEbook'])) {
-    $myArray = array();
-    $category = $_POST['category'];
-    $query = "SELECT ebook_name as title,ebook_filename as content, ebook_image as image FROM ebook WHERE ebook_category='$category' ORDER BY ebook_name DESC;";
+    $myArray = [];
+    $category = mysqli_real_escape_string($db, $_POST['category'] ?? '');
+
+    $query = "
+        SELECT ebook_name, ebook_filename, ebook_image, stock_quantity
+        FROM ebook
+        WHERE ebook_category='$category'
+        ORDER BY ebook_name DESC
+    ";
+
     $result = mysqli_query($db, $query);
-    $counter = 0;
 
     while ($row = mysqli_fetch_assoc($result)) {
-        if ($row['content']) {
-            $myArray[] = [
-                'title' => urldecode($row['title']),
-                'content' => 'https://www.kltheguide.com.my/' . 'assets/pdf/ebook/' . $category . '/' . urldecode($row['content']),
-                'image' => 'https://www.kltheguide.com.my/' . 'assets/img/ebook/' . $category . '/' . urldecode($row['image']),
-            ];
-        } else {
-            $myArray[] = [
-                'title' => urldecode($row['title']),
-                'content' => '',
-                'image' => 'https://www.kltheguide.com.my/' . 'assets/img/ebook/' . $category . '/' . urldecode($row['image']),
-            ];
-        }
+        $myArray[] = [
+            'title' => urldecode($row['ebook_name']),
+            'content' => $row['ebook_filename']
+                ? 'https://www.kltheguide.com.my/assets/pdf/ebook/' .
+                    $category . '/' . urldecode($row['ebook_filename'])
+                : '',
+            'image' => 'https://www.kltheguide.com.my/assets/img/ebook/' .
+                $category . '/' . urldecode($row['ebook_image']),
+            'stock_quantity' => max(0, (int)($row['stock_quantity'] ?? 0)),
+        ];
     }
+
+    header('Content-Type: application/json; charset=UTF-8');
     echo json_encode($myArray);
+    exit;
+}
+
+if (isset($_POST['appBookOrder'])) {
+    header('Content-Type: application/json; charset=UTF-8');
+
+    $transactionStarted = false;
+    $receiptPath = null;
+
+    try {
+        $product = trim($_POST['product'] ?? '');
+        $quantity = filter_var(
+            $_POST['quantity'] ?? null,
+            FILTER_VALIDATE_INT
+        );
+        $receipt = $_FILES['receipt'] ?? null;
+
+        if (
+            $product === '' ||
+            $quantity === false ||
+            $quantity < 1 ||
+            !$receipt
+        ) {
+            throw new RuntimeException('Missing order details');
+        }
+
+        if (
+            $receipt['error'] !== UPLOAD_ERR_OK ||
+            $receipt['size'] > 8 * 1024 * 1024
+        ) {
+            throw new RuntimeException('Invalid receipt upload');
+        }
+
+        $extension = strtolower(
+            pathinfo($receipt['name'], PATHINFO_EXTENSION)
+        );
+
+        if (!in_array($extension, ['jpg', 'jpeg', 'png', 'pdf'], true)) {
+            throw new RuntimeException(
+                'Receipt must be JPG, PNG, or PDF'
+            );
+        }
+
+        if (
+            $extension !== 'pdf' &&
+            @getimagesize($receipt['tmp_name']) === false
+        ) {
+            throw new RuntimeException('Invalid receipt image');
+        }
+
+        $productEscaped = mysqli_real_escape_string($db, $product);
+
+        mysqli_begin_transaction($db);
+        $transactionStarted = true;
+
+        $result = mysqli_query(
+            $db,
+            "SELECT *
+             FROM ebook
+             WHERE ebook_name='$productEscaped'
+             LIMIT 1
+             FOR UPDATE"
+        );
+        $row = $result ? mysqli_fetch_assoc($result) : null;
+
+        if (!$row) {
+            throw new RuntimeException('Book not found');
+        }
+
+        $stockColumn = null;
+
+        foreach ($row as $column => $value) {
+            $columnName = strtolower($column);
+
+            if (
+                (
+                    str_contains($columnName, 'stock') ||
+                    str_contains($columnName, 'quantity') ||
+                    str_contains($columnName, 'qty')
+                ) &&
+                is_numeric($value)
+            ) {
+                $stockColumn = $column;
+                $stock = (int)$value;
+                break;
+            }
+        }
+
+        if ($stockColumn === null || $stock < $quantity) {
+            throw new RuntimeException('Insufficient stock');
+        }
+
+        $safeColumn = str_replace('`', '``', $stockColumn);
+        $newStock = $stock - $quantity;
+
+        $update = $db->prepare(
+            "UPDATE ebook
+             SET `$safeColumn`=?
+             WHERE ebook_name=?"
+        );
+
+        if (!$update) {
+            throw new RuntimeException('Could not prepare stock update');
+        }
+
+        $update->bind_param('is', $newStock, $product);
+        $update->execute();
+        $update->close();
+
+        $directory = __DIR__ .
+            '/../assets/payment_receipts/' .
+            date('Y/m');
+
+        if (!is_dir($directory) &&
+            !mkdir($directory, 0775, true)) {
+            throw new RuntimeException(
+                'Could not create receipt directory'
+            );
+        }
+
+        $savedExtension = $extension === 'jpeg'
+            ? 'jpg'
+            : $extension;
+
+        $filename = bin2hex(random_bytes(12)) .
+            '.' .
+            $savedExtension;
+
+        $receiptPath = $directory . '/' . $filename;
+
+        if (!move_uploaded_file(
+            $receipt['tmp_name'],
+            $receiptPath
+        )) {
+            throw new RuntimeException('Could not save receipt');
+        }
+
+        $safeProduct = htmlspecialchars(
+            $product,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $customerName = htmlspecialchars(
+            trim($_POST['name'] ?? ''),
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $customerEmail = trim($_POST['email'] ?? '');
+
+        $customerPhone = htmlspecialchars(
+            trim($_POST['phone'] ?? ''),
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $customerAddress = nl2br(
+            htmlspecialchars(
+                trim($_POST['address'] ?? ''),
+                ENT_QUOTES,
+                'UTF-8'
+            )
+        );
+
+        $unitPrice = number_format(
+            (float)($_POST['unit_price'] ?? 0),
+            2
+        );
+
+        $totalPrice = number_format(
+            (float)($_POST['unit_price'] ?? 0) * $quantity,
+            2
+        );
+
+        $mail = mailer_from_config();
+
+        $mail->addAddress(
+            $_ENV['BOOK_ORDER_EMAIL'] ??
+            'marliantimufpiarlis@gmail.com'
+        );
+
+        if (filter_var(
+            $customerEmail,
+            FILTER_VALIDATE_EMAIL
+        )) {
+            $mail->addReplyTo(
+                $customerEmail,
+                $customerName
+            );
+        }
+
+        $mail->Subject = 'Book Order - ' . $product;
+        $mail->isHTML(true);
+
+        $mail->Body = "
+            <h2>New Book Order</h2>
+            <p><strong>Book:</strong> {$safeProduct}</p>
+            <p><strong>Quantity:</strong> {$quantity}</p>
+            <p><strong>Unit price:</strong> RM {$unitPrice}</p>
+            <p><strong>Total:</strong> RM {$totalPrice}</p>
+            <p><strong>Name:</strong> {$customerName}</p>
+            <p><strong>Email:</strong> {$customerEmail}</p>
+            <p><strong>Phone:</strong> {$customerPhone}</p>
+            <p>
+                <strong>Address:</strong><br>
+                {$customerAddress}
+            </p>
+        ";
+
+        $mail->AltBody = strip_tags($mail->Body);
+
+        $mail->addAttachment(
+            $receiptPath,
+            'payment-receipt.' . $savedExtension
+        );
+
+        $mail->send();
+
+        mysqli_commit($db);
+
+        echo json_encode([
+            'success' => true,
+            'remaining_stock' => $newStock,
+        ]);
+    } catch (Throwable $error) {
+        if ($transactionStarted) {
+            mysqli_rollback($db);
+        }
+
+        http_response_code(400);
+
+        echo json_encode([
+            'success' => false,
+            'message' => $error->getMessage(),
+        ]);
+    }
+
+    exit;
 }
 
 
@@ -1854,219 +2038,6 @@ if (isset($_POST['appAdsSettings'])) {
     }
 
     echo json_encode($myArray);
-}
-
-
-if (isset($_POST['appSiteInfo'])) {
-    $myArray = [];
-    $query = "SELECT settingname, value FROM siteinfo";
-    $result = mysqli_query($db, $query);
-
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $myArray[$row['settingname']] = $row['value'];
-        }
-    } else {
-        error_log('appSiteInfo query failed: ' . mysqli_error($db));
-    }
-
-    echo json_encode($myArray);
-}
-
-
-if (isset($_POST['appHomeHighlights'])) {
-    $myArray = [];
-    $query = "SELECT contentkey, image FROM home_highlights";
-    $result = mysqli_query($db, $query);
-
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $myArray[$row['contentkey']] = $row['image'];
-        }
-    } else {
-        error_log('appHomeHighlights query failed: ' . mysqli_error($db));
-    }
-
-    echo json_encode($myArray);
-}
-
-
-if (isset($_POST['appHomeRecommendations'])) {
-    $myArray = [];
-    $query = "SELECT contentkey, image FROM home_recommendations";
-    $result = mysqli_query($db, $query);
-
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $myArray[$row['contentkey']] = $row['image'];
-        }
-    } else {
-        error_log('appHomeRecommendations query failed: ' . mysqli_error($db));
-    }
-
-    echo json_encode($myArray);
-}
-
-
-if (isset($_POST['appHighlightsTransport'])) {
-    $myArray = [];
-    $query = "SELECT contentkey, image FROM highlights_transport";
-    $result = mysqli_query($db, $query);
-
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $myArray[$row['contentkey']] = $row['image'];
-        }
-    } else {
-        error_log('appHighlightsTransport query failed: ' . mysqli_error($db));
-    }
-
-    echo json_encode($myArray);
-}
-
-
-if (isset($_POST['appHighlightsTravelTips'])) {
-    $myArray = [];
-    $query = "SELECT contentkey, image, link FROM highlights_traveltips";
-    $result = mysqli_query($db, $query);
-
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $myArray[$row['contentkey']] = [
-                'image' => $row['image'],
-                'link' => $row['link'],
-            ];
-        }
-    } else {
-        error_log('appHighlightsTravelTips query failed: ' . mysqli_error($db));
-    }
-
-    echo json_encode($myArray);
-}
-
-
-if (isset($_POST['appTravelBuddyQA'])) {
-    $myArray = [];
-    $query = "SELECT patterns, answer, quick FROM travel_buddy_qa ORDER BY id ASC";
-    $result = mysqli_query($db, $query);
-
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $myArray[] = [
-                'patterns' => json_decode($row['patterns'], true),
-                'answer' => $row['answer'],
-                'quick' => json_decode($row['quick'], true),
-            ];
-        }
-    } else {
-        error_log('appTravelBuddyQA query failed: ' . mysqli_error($db));
-    }
-
-    echo json_encode($myArray);
-}
-
-
-// Real conversational AI for Travel Buddy, backed by the Gemini API and
-// grounded in the same travel_buddy_qa content used by the keyword-matching
-// fallback (lib/services/travel_buddy.dart) so facts stay consistent between
-// the two, and admins editing the DB updates both.
-if (isset($_POST['appTravelBuddyAI'])) {
-    $userMessage = isset($_POST['message']) ? trim(substr($_POST['message'], 0, 2000)) : '';
-
-    if ($userMessage === '') {
-        http_response_code(400);
-        echo json_encode(['error' => 'message is required']);
-        exit;
-    }
-
-    $history = [];
-    if (isset($_POST['history'])) {
-        $decodedHistory = json_decode($_POST['history'], true);
-        if (is_array($decodedHistory)) {
-            $history = array_slice($decodedHistory, -8);
-        }
-    }
-
-    $context = '';
-    $qaResult = mysqli_query($db, "SELECT answer FROM travel_buddy_qa ORDER BY id ASC");
-    while ($row = mysqli_fetch_assoc($qaResult)) {
-        $context .= "- " . $row['answer'] . "\n\n";
-    }
-
-    $systemInstruction = "You are KL Buddy, a friendly, upbeat travel assistant for tourists visiting "
-        . "Kuala Lumpur and Malaysia. Use the reference facts below as your source of truth for prices, "
-        . "hours, locations, and recommendations — don't invent details that contradict them, but you "
-        . "can use general travel knowledge for anything they don't cover. Keep replies conversational, "
-        . "warm, and concise (under 120 words), use emojis sparingly like the reference examples, and "
-        . "occasionally mention 'KL The Guide' when it naturally fits. Always propose 2-3 short "
-        . "quickReplies relevant to your answer.\n\nReference facts:\n\n" . $context;
-
-    $contents = [];
-    foreach ($history as $turn) {
-        if (!isset($turn['role'], $turn['text'])) continue;
-        $contents[] = [
-            'role' => $turn['role'] === 'bot' ? 'model' : 'user',
-            'parts' => [['text' => (string) $turn['text']]],
-        ];
-    }
-    $contents[] = ['role' => 'user', 'parts' => [['text' => $userMessage]]];
-
-    $payload = [
-        'systemInstruction' => ['parts' => [['text' => $systemInstruction]]],
-        'contents' => $contents,
-        'generationConfig' => [
-            'responseMimeType' => 'application/json',
-            'responseSchema' => [
-                'type' => 'OBJECT',
-                'properties' => [
-                    'answer' => ['type' => 'STRING'],
-                    'quickReplies' => [
-                        'type' => 'ARRAY',
-                        'items' => ['type' => 'STRING'],
-                    ],
-                ],
-                'required' => ['answer', 'quickReplies'],
-            ],
-        ],
-    ];
-
-    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' . $gemini_api_key;
-
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-    curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curlError = curl_error($ch);
-    curl_close($ch);
-
-    if ($response === false || $httpCode !== 200) {
-        error_log('appTravelBuddyAI: Gemini call failed [' . $httpCode . '] ' . $curlError . ' ' . $response);
-        http_response_code(502);
-        echo json_encode(['error' => 'AI request failed']);
-        exit;
-    }
-
-    $decoded = json_decode($response, true);
-    $text = $decoded['candidates'][0]['content']['parts'][0]['text'] ?? null;
-
-    if ($text === null) {
-        error_log('appTravelBuddyAI: malformed Gemini response ' . $response);
-        http_response_code(502);
-        echo json_encode(['error' => 'AI response malformed']);
-        exit;
-    }
-
-    $inner = json_decode($text, true);
-    if (!is_array($inner) || !isset($inner['answer'])) {
-        echo json_encode(['answer' => $text, 'quickReplies' => []]);
-        exit;
-    }
-
-    echo json_encode($inner);
 }
 
 
@@ -2374,193 +2345,4 @@ if (isset($_POST['advertise'])) {
 
     header('Location: advertisewithus.php');
     exit;
-}
-
-
-
-
-
-
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$isLoginPage = ($path === '/admin/login.php');
-
-// Prevent direct access to this file
-// if (basename($_SERVER['PHP_SELF']) === basename(__FILE__)) {
-//     exit('Access forbidden');
-// }
-
-function trackPageView($db,$username=''){
-
-    // Ignore CLI (cron jobs / server scripts)
-    if (php_sapi_name() === 'cli') {
-        return;
-    }
-
-    // Only track normal page loads
-    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-        return;
-    }
-
-    // Ignore missing user-agent
-    if (empty($_SERVER['HTTP_USER_AGENT'])) {
-        return;
-    }
-
-    // Block common bots
-    $bots = '/bot|crawl|slurp|spider|facebook|curl|wget|python|scrapy/i';
-    if (preg_match($bots, $_SERVER['HTTP_USER_AGENT'])) {
-        return;
-    }
-
-    // Detect real IP (Cloudflare compatible)
-    if(!empty($_SERVER['HTTP_CF_CONNECTING_IP'])){
-        $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-    } else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-        $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
-    }else{
-        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
-    }
-
-    // Ignore localhost or server internal requests
-    if($ip === '127.0.0.1' || $ip === '::1'){
-        return;
-    }
-    if(!empty($username)) {
-        $url = $_SERVER['REQUEST_URI'] . '?attemptedLogin=' . $username;
-    } else {
-        $url = $_SERVER['REQUEST_URI'];
-    }
-    // Check if visitor already counted today
-    $stmt = $db->prepare("
-        SELECT id FROM pageview
-        WHERE url=? AND ip=? AND DATE(dateent)=CURDATE()
-        LIMIT 1
-    ");
-
-    $stmt->bind_param("ss",$url,$ip);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if($result->num_rows > 0){
-
-        $row = $result->fetch_assoc();
-
-        $update = $db->prepare("
-            UPDATE pageview
-            SET views = views + 1
-            WHERE id=?
-        ");
-
-        $update->bind_param("i",$row['id']);
-        $update->execute();
-
-    }else{
-
-        $city = "";
-        $country = "";
-
-        // Only call location API for real IP
-        $json = @file_get_contents("http://ip-api.com/json/".$ip);
-
-        if($json){
-            $data = json_decode($json,true);
-            $city = $data['city'] ?? '';
-            $country = $data['country'] ?? '';
-        }
-
-        $views = 1;
-
-        $insert = $db->prepare("
-            INSERT INTO pageview
-            (url,views,ip,city,country,base,jp,dateent)
-            VALUES (?,?,?,?,?,0,0,NOW())
-        ");
-
-        $insert->bind_param("sisss",$url,$views,$ip,$city,$country);
-        $insert->execute();
-    }
-}
-function inconsistentCredentials($db) {
-    if (isset($_GET['logout']) || (isset($_GET['pw']) && $_GET['pw'] === '0')) {
-        session_destroy();
-        if(isset($_SESSION['username'])) {
-            unset($_SESSION['username']);
-        }
-        if(isset($_SESSION['access'])) {
-            unset($_SESSION['access']);
-        }
-        trackPageView($db);
-        exit('successfully logged out');
-    }
-}
-function logouts($db) {
-    if (isset($_GET['logout']) || (isset($_GET['pw']) && $_GET['pw'] === '0')) {
-        session_destroy();
-        if(isset($_SESSION['username'])) {
-            unset($_SESSION['username']);
-        }
-        if(isset($_SESSION['access'])) {
-            unset($_SESSION['access']);
-        }
-        trackPageView($db);
-        exit('successfully logged out');
-    }
-}
-
-logouts($db);
-$ip = '';
-if(!empty($_SERVER['HTTP_CF_CONNECTING_IP'])){
-    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-    $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
-}else{
-    $ip = $_SERVER['REMOTE_ADDR'] ?? '';
-}
-
-$ADMIN_PASSWORD = "CHANGE_ME_ADMIN_PASSWORD";
-$WRITER_PASSWORD = "CHANGE_ME_WRITER_PASSWORD";
-
-if(isset($_SESSION['access']) &&
-($_SESSION['access'] === $ADMIN_PASSWORD ||
-$_SESSION['access'] === $WRITER_PASSWORD))
-{
-    if($_SESSION['access'] === $ADMIN_PASSWORD){
-        return;
-    }  else if($_SESSION['pw'] === $ADMIN_PASSWORD && isset($_SESSION['username']) && $_SESSION['username'] === "annie") {
-        return;
-    }  else if($_SESSION['access'] === $WRITER_PASSWORD && isset($_SESSION['username']) && $_SESSION['username'] === 'writer') {
-        trackPageView($db,$_GET['username']);
-        return;
-    } else {
-        trackPageView($db);
-        echo "error 404 ".$ip . " login incorrect ";
-        http_response_code(404);
-        logouts($db,$_GET['username']);
-    }
-} else {
-    if($isLoginPage === true) {
-
-        $ADMIN_PASSWORD = "CHANGE_ME_ADMIN_PASSWORD";
-        $WRITER_PASSWORD = "CHANGE_ME_WRITER_PASSWORD";
-        if(isset($_GET['pw']))  {
-
-            if($_GET['pw'] === $ADMIN_PASSWORD) {
-                $_SESSION['access'] = $ADMIN_PASSWORD;
-            } else if ($_GET['pw'] === $WRITER_PASSWORD)  {
-                $_SESSION['access'] = $WRITER_PASSWORD;
-            }
-            if(!empty($_SESSION['access'])){
-                trackPageView($db);
-                return;
-            } else {
-                trackPageView($db);
-                exit('err session');
-            }
-
-        } else {
-            trackPageView($db);
-            http_response_code(404);
-            exit("error 404 ".$ip);
-        }
-    }
 }

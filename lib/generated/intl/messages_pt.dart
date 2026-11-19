@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "As Cameron Highlands são o refúgio de montanha mais famoso da Malásia, com um clima ameno, temperaturas diurnas ao redor de 25°C e temperaturas noturnas em média de 18°C. As terras altas são divididas em três vilarejos: Tanah Rata, Brinchang e Ringlet. Durante o período colonial, os britânicos cultivavam chá nas encostas férteis das montanhas, uma tradição ainda mantida pelos habitantes locais. Desde então, Cameron Highlands tornou-se o maior exportador de chá da Malásia. Além do chá, Cameron também é ideal para o cultivo de árvores, frutas e vegetais continentais.",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "O Mercado Central, construído em 1892, é uma atração turística popular conhecida por seus artesanatos locais...",
     ),
@@ -214,9 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "drJaneClinicPhone": MessageLookupByLibrary.simpleMessage(""),
     "ebook": MessageLookupByLibrary.simpleMessage("E-Book"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "Email: enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "error": MessageLookupByLibrary.simpleMessage("Ocorreu um erro"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "Erro ao carregar dados",
@@ -719,7 +720,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "Nível 4, Suria KLCC, Torres Gêmeas PETRONAS, Centro da Cidade de Kuala Lumpur, 50088, Kuala Lumpur",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("Telefone: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("Telefone"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage("Escolha um Idioma"),
     "placesOfWorship": MessageLookupByLibrary.simpleMessage("Locais de Culto"),
     "placesToShop": MessageLookupByLibrary.simpleMessage(
@@ -991,9 +992,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("O que Fazer"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("O que Comer"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "Whatsapp: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "Rafting em Águas Bravas em Kuala Kubu Bharu",
     ),
@@ -1007,9 +1006,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "Jalan Petaling, 50000 Kuala Lumpur",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "Segunda-Sexta: 9:00 AM - 6:00 PM",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("Segunda-Sexta"),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage(

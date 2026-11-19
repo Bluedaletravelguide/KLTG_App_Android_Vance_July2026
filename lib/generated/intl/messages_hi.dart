@@ -137,6 +137,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "कैमरन हाइलैंड्स मलेशिया का सबसे लोकप्रिय पहाड़ी रिसॉर्ट है, जहां हल्की जलवायु होती है, दिन में तापमान लगभग 25°C और रात में औसतन 18°C होता है। यह तीन शहरों में विभाजित है: तानाह राटा, ब्रिंचांग और रिंगलेट। औपनिवेशिक काल में ब्रिटिशों ने यहां की उपजाऊ पहाड़ियों पर चाय उगाई, जो आज भी स्थानीय लोग करते हैं। तब से यह मलेशिया का सबसे बड़ा चाय निर्यातक बन गया है। चाय के अलावा, कैमरन महाद्वीपीय पेड़, फल और सब्जियों की खेती के लिए भी आदर्श है।",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "सेंट्रल मार्केट, 1892 में बनाया गया था, यह स्थानीय हस्तशिल्प के लिए प्रसिद्ध एक लोकप्रिय पर्यटन स्थल है...",
     ),
@@ -206,9 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ट्रोपिकाना एवेन्यू, P01-09 (पहली मंजिल), पर्सियारन ट्रोपिकाना, PJU3, 47410 पेटलिंग जया, सेलांगोर",
     ),
     "ebook": MessageLookupByLibrary.simpleMessage("ई-बुक"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "ईमेल: enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("ईमेल"),
     "error": MessageLookupByLibrary.simpleMessage("एक त्रुटि हुई"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "डेटा लोड करने में त्रुटि",
@@ -701,7 +702,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "लेवल 4, सुरिया KLCC, PETRONAS ट्विन टावर्स, कुआलालंपुर सिटी सेंटर, 50088, कुआलालंपुर",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("फोन: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("फोन"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage("एक भाषा चुनें"),
     "placesOfWorship": MessageLookupByLibrary.simpleMessage("उपासना स्थल"),
     "placesToShop": MessageLookupByLibrary.simpleMessage("खरीदारी के स्थान"),
@@ -968,9 +969,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("क्या करें"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("क्या खाएं"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "व्हाट्सएप: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("व्हाट्सएप"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "व्हाइटवाटर राफ्टिंग कुआला कुबु बहारू",
     ),
@@ -984,9 +983,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "जालान पेटालिंग, 50000 कुआलालंपुर",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "सोमवार-शुक्रवार: सुबह 9:00 - शाम 6:00",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("सोमवार-शुक्रवार"),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage(

@@ -434,50 +434,50 @@ class S {
     );
   }
 
-  /// `Email: enquiry@bluedale.com.my`
+  /// `Email`
   String get email {
     return Intl.message(
-      'Email: enquiry@bluedale.com.my',
+      'Email',
       name: 'email',
       desc: 'Text for the company\'s email contact',
       args: [],
     );
   }
 
-  /// `Whatsapp: +6012-220 0622`
+  /// `Whatsapp`
   String get whatsapp {
     return Intl.message(
-      'Whatsapp: +6012-220 0622',
+      'Whatsapp',
       name: 'whatsapp',
       desc: 'Text for the company\'s WhatsApp contact',
       args: [],
     );
   }
 
-  /// `Phone: +603-78869219`
+  /// `Phone`
   String get phone {
     return Intl.message(
-      'Phone: +603-78869219',
+      'Phone',
       name: 'phone',
       desc: 'Text for the company\'s phone contact',
       args: [],
     );
   }
 
-  /// `address`
+  /// `Address`
   String get address {
     return Intl.message(
-      'address',
+      'Address',
       name: 'address',
       desc: 'Text for the company\'s address',
       args: [],
     );
   }
 
-  /// `Monday-Friday: 9:00AM - 6:00PM`
+  /// `Monday-Friday`
   String get workingHours {
     return Intl.message(
-      'Monday-Friday: 9:00AM - 6:00PM',
+      'Monday-Friday',
       name: 'workingHours',
       desc: 'Text for the company\'s working hours',
       args: [],
@@ -4546,6 +4546,16 @@ class S {
       'september',
       name: 'september',
       desc: 'title for september',
+      args: [],
+    );
+  }
+
+  /// `Career Opportunity`
+  String get career_opportunity {
+    return Intl.message(
+      'Career Opportunity',
+      name: 'career_opportunity',
+      desc: '',
       args: [],
     );
   }

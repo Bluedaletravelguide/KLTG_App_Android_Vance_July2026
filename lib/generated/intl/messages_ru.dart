@@ -141,6 +141,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "Кэмерон Хайлендс — самый известный горный курорт Малайзии с мягким климатом: дневные температуры около 25°C, а ночные — около 18°C. Эти возвышенности делятся на три посёлка: Тана Рата, Бринчанг и Ринглет. В колониальный период британцы выращивали чай на плодородных склонах, и это традиция, которую продолжают местные жители. С тех пор Кэмерон Хайлендс стал крупнейшим экспортёром чая в Малайзии. Помимо чая, здесь также идеально подходят условия для выращивания деревьев, фруктов и овощей континентального климата.",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "Центральный рынок, построенный в 1892 году, является популярной туристической достопримечательностью, известной своими местными ремеслами...",
     ),
@@ -212,9 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "drJaneClinicPhone": MessageLookupByLibrary.simpleMessage(""),
     "ebook": MessageLookupByLibrary.simpleMessage("Электронная книга"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "Электронная почта: enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
     "error": MessageLookupByLibrary.simpleMessage("Произошла ошибка"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "Ошибка загрузки данных",
@@ -719,7 +720,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "4 этаж, Suria KLCC, Башни-близнецы Петронас, Куала-Лумпур Сити Центр, 50088, Куала-Лумпур",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("Телефон: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("Телефон"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage("Выберите язык"),
     "placesOfWorship": MessageLookupByLibrary.simpleMessage("Места поклонения"),
     "placesToShop": MessageLookupByLibrary.simpleMessage("Места для шопинга"),
@@ -1003,9 +1004,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("Что делать"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("Что поесть"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "WhatsApp: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("WhatsApp"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "Рафтинг на Белой Воде в Куала Кубу Бахру",
     ),
@@ -1019,9 +1018,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "Джалан Петалинг, 50000 Куала-Лумпур",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "Понедельник-пятница: 9:00 - 18:00",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("Понедельник-пятница"),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage(

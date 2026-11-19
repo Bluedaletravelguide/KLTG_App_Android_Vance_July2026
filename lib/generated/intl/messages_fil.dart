@@ -28,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Contest": MessageLookupByLibrary.simpleMessage("Paligsahan"),
     "EventScreen": MessageLookupByLibrary.simpleMessage("Mga Kaganapan"),
     "aboutUs": MessageLookupByLibrary.simpleMessage("Tungkol sa Amin"),
-    "address": MessageLookupByLibrary.simpleMessage("address"),
+    "address": MessageLookupByLibrary.simpleMessage("Address"),
     "aeonFantasy": MessageLookupByLibrary.simpleMessage("Aeon Fantasy"),
     "aeonFantasyHours": MessageLookupByLibrary.simpleMessage(
       "10.00 AM - 10.00 PM (Linggo - Huwebes), 10.00 AM - 11.00 PM (Biyernes - Sabado)",
@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "cameronHighlandContent": MessageLookupByLibrary.simpleMessage(
       "Ang Cameron Highlands ay ang pinaka-karaniwang retreat ng mataas na lugar sa Malaysia na may banayad na klima, kung saan ang mga temperatura sa araw ay humigit-kumulang 25°C at sa gabi ay nasa 18°C. Ang mataas na lugar ay nahahati sa tatlong bayan: Tanah Rata, Brinchang, at Ringlet. Ang mga Briton ay nagtanim ng tsaa sa mayamang lupain ng bundok noong panahon ng kolonyal, isang tradisyon na patuloy na ginagawa ng mga lokal. Mula noon, ito ang naging pinakamalaking exporter ng tsaa ng Malaysia. Bukod sa tsaa, ang Cameron ay mainam din para sa pagtatanim ng mga puno, prutas, at gulay.",
     ),
+    "career_opportunity": MessageLookupByLibrary.simpleMessage(
+      "Career Opportunity",
+    ),
     "centralMarketDescription": MessageLookupByLibrary.simpleMessage(
       "Ang Central Market, na itinayo noong 1892, ay isang sikat na atraksiyong panturista na kilala para sa mga lokal na handicrafts...",
     ),
@@ -216,9 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "drJaneClinicPhone": MessageLookupByLibrary.simpleMessage(""),
     "ebook": MessageLookupByLibrary.simpleMessage("E-Aklat"),
-    "email": MessageLookupByLibrary.simpleMessage(
-      "Email: enquiry@bluedale.com.my",
-    ),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "error": MessageLookupByLibrary.simpleMessage("Nagkaroon ng error"),
     "errorLoadingData": MessageLookupByLibrary.simpleMessage(
       "Error sa pag-load ng data",
@@ -725,7 +726,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "petrosainsKlccLocation": MessageLookupByLibrary.simpleMessage(
       "Level 4, Suria KLCC, PETRONAS Twin Towers, Kuala Lumpur City Centre, 50088, Kuala Lumpur",
     ),
-    "phone": MessageLookupByLibrary.simpleMessage("Telepono: +603-78869219"),
+    "phone": MessageLookupByLibrary.simpleMessage("Telepono"),
     "pickALanguage": MessageLookupByLibrary.simpleMessage("Pumili ng Wika"),
     "placesOfWorship": MessageLookupByLibrary.simpleMessage(
       "Mga Lugar ng Pagsamba",
@@ -1009,9 +1010,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "whatToDo": MessageLookupByLibrary.simpleMessage("Ano ang Gagawin"),
     "whatToEat": MessageLookupByLibrary.simpleMessage("Ano ang Kakainin"),
-    "whatsapp": MessageLookupByLibrary.simpleMessage(
-      "Whatsapp: +6012-220 0622",
-    ),
+    "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp"),
     "whitewaterRafting": MessageLookupByLibrary.simpleMessage(
       "Whitewater Rafting sa Kuala Kubu Bharu",
     ),
@@ -1025,9 +1024,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wildflowersKLLocation": MessageLookupByLibrary.simpleMessage(
       "Jalan Petaling, 50000 Kuala Lumpur",
     ),
-    "workingHours": MessageLookupByLibrary.simpleMessage(
-      "Lunes-Biyernes: 9:00AM - 6:00PM",
-    ),
+    "workingHours": MessageLookupByLibrary.simpleMessage("Lunes-Biyernes"),
     "ymca_contact": MessageLookupByLibrary.simpleMessage("+603-2274 1439"),
     "ymca_description": MessageLookupByLibrary.simpleMessage(""),
     "ymca_hostel": MessageLookupByLibrary.simpleMessage(
